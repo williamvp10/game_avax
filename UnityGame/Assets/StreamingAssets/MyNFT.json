@@ -1,0 +1,290 @@
+[
+    {
+        "description": "Friendly OpenSea Creature that enjoys long swims in the ocean.",
+        "external_url": "https://openseacreatures.io/3",
+        "image": "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
+        "name": "Dave Starbelly",
+        "attributes": [
+            {
+                "trait_type": "Live",
+                "value": 100
+            },
+            {
+                "trait_type": "ShootSpeed",
+                "value": 5
+            },
+            {
+                "trait_type": "ShootMaxDistance",
+                "value": 5
+            },
+            {
+                "trait_type": "DamagePerBullet",
+                "value": 5
+            },
+            {
+                "trait_type": "MaxSpeed",
+                "value": 4
+            },
+            {
+                "trait_type": "Acceleration",
+                "value": 0.5
+            },
+            {
+                "trait_type": "Deceleration",
+                "value": 3
+            },
+            {
+                "trait_type": "RotationSpeed",
+                "value": 40
+            },
+            {
+                "trait_type": "ShipLevel",
+                "value": 1
+            },
+            {
+                "trait_type": "SkinId",
+                "value": 0
+            }
+        ]
+    },
+    {
+        "description": "Friendly OpenSea Creature that enjoys long swims in the ocean.",
+        "external_url": "https://openseacreatures.io/3",
+        "image": "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
+        "name": "Dave Starbelly",
+        "attributes": [
+            {
+                "trait_type": "Live",
+                "value": 100
+            },
+            {
+                "trait_type": "ShootSpeed",
+                "value": 5
+            },
+            {
+                "trait_type": "ShootMaxDistance",
+                "value": 5
+            },
+            {
+                "trait_type": "DamagePerBullet",
+                "value": 5
+            },
+            {
+                "trait_type": "MaxSpeed",
+                "value": 4
+            },
+            {
+                "trait_type": "Acceleration",
+                "value": 1.5
+            },
+            {
+                "trait_type": "Deceleration",
+                "value": 3
+            },
+            {
+                "trait_type": "RotationSpeed",
+                "value": 80
+            },
+            {
+                "trait_type": "ShipLevel",
+                "value": 1
+            },
+            {
+                "trait_type": "SkinId",
+                "value": 1
+            }
+        ]
+    },
+    {
+        "description": "Friendly OpenSea Creature that enjoys long swims in the ocean.",
+        "external_url": "https://openseacreatures.io/3",
+        "image": "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
+        "name": "Dave Starbelly",
+        "attributes": [
+            {
+                "trait_type": "Live",
+                "value": 100
+            },
+            {
+                "trait_type": "ShootSpeed",
+                "value": 5
+            },
+            {
+                "trait_type": "ShootMaxDistance",
+                "value": 5
+            },
+            {
+                "trait_type": "DamagePerBullet",
+                "value": 5
+            },
+            {
+                "trait_type": "MaxSpeed",
+                "value": 4
+            },
+            {
+                "trait_type": "Acceleration",
+                "value": 1.5
+            },
+            {
+                "trait_type": "Deceleration",
+                "value": 3
+            },
+            {
+                "trait_type": "RotationSpeed",
+                "value": 80
+            },
+            {
+                "trait_type": "ShipLevel",
+                "value": 1
+            },
+            {
+                "trait_type": "SkinId",
+                "value": 2
+            }
+        ]
+    },
+    {
+        "description": "Friendly OpenSea Creature that enjoys long swims in the ocean.",
+        "external_url": "https://openseacreatures.io/3",
+        "image": "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
+        "name": "Dave Starbelly",
+        "attributes": [
+            {
+                "trait_type": "Live",
+                "value": 100
+            },
+            {
+                "trait_type": "ShootSpeed",
+                "value": 5
+            },
+            {
+                "trait_type": "ShootMaxDistance",
+                "value": 5
+            },
+            {
+                "trait_type": "DamagePerBullet",
+                "value": 5
+            },
+            {
+                "trait_type": "MaxSpeed",
+                "value": 4
+            },
+            {
+                "trait_type": "Acceleration",
+                "value": 1.5
+            },
+            {
+                "trait_type": "Deceleration",
+                "value": 3
+            },
+            {
+                "trait_type": "RotationSpeed",
+                "value": 80
+            },
+            {
+                "trait_type": "ShipLevel",
+                "value": 1
+            },
+            {
+                "trait_type": "SkinId",
+                "value": 3
+            }
+        ]
+    },
+    {
+        "description": "Friendly OpenSea Creature that enjoys long swims in the ocean.",
+        "external_url": "https://openseacreatures.io/3",
+        "image": "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
+        "name": "Dave Starbelly",
+        "attributes": [
+            {
+                "trait_type": "Live",
+                "value": 100
+            },
+            {
+                "trait_type": "ShootSpeed",
+                "value": 5
+            },
+            {
+                "trait_type": "ShootMaxDistance",
+                "value": 5
+            },
+            {
+                "trait_type": "DamagePerBullet",
+                "value": 5
+            },
+            {
+                "trait_type": "MaxSpeed",
+                "value": 4
+            },
+            {
+                "trait_type": "Acceleration",
+                "value": 1.5
+            },
+            {
+                "trait_type": "Deceleration",
+                "value": 3
+            },
+            {
+                "trait_type": "RotationSpeed",
+                "value": 80
+            },
+            {
+                "trait_type": "ShipLevel",
+                "value": 1
+            },
+            {
+                "trait_type": "SkinId",
+                "value": 4
+            }
+        ]
+    },
+    {
+        "description": "Friendly OpenSea Creature that enjoys long swims in the ocean.",
+        "external_url": "https://openseacreatures.io/3",
+        "image": "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
+        "name": "Dave Starbelly",
+        "attributes": [
+            {
+                "trait_type": "Live",
+                "value": 100
+            },
+            {
+                "trait_type": "ShootSpeed",
+                "value": 5
+            },
+            {
+                "trait_type": "ShootMaxDistance",
+                "value": 5
+            },
+            {
+                "trait_type": "DamagePerBullet",
+                "value": 5
+            },
+            {
+                "trait_type": "MaxSpeed",
+                "value": 4
+            },
+            {
+                "trait_type": "Acceleration",
+                "value": 1.5
+            },
+            {
+                "trait_type": "Deceleration",
+                "value": 3
+            },
+            {
+                "trait_type": "RotationSpeed",
+                "value": 80
+            },
+            {
+                "trait_type": "ShipLevel",
+                "value": 1
+            },
+            {
+                "trait_type": "SkinId",
+                "value": 5
+            }
+        ]
+    }
+]

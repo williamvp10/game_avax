@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ca5bdb8731c34e41975aa5386bd06ed, type: 3}
+  m_Name: PlayerNetworkId
+  m_EditorClassIdentifier: 
+  httpUrl: http://localhost:3000
+  webSocketUrl: ws://localhost:3000/
+  socketId: 44dc2243-e978-4b5c-a4c1-297ed6538dba
+  roomId: room_1724700937232
+  walletAddress: 

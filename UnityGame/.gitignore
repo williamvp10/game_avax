@@ -1,0 +1,62 @@
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de Unity
+[Ll]ibrary/
+[Ll]ogs/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+Assets/AssetStoreTools*
+
+# Archivos de compilación
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.pidb
+*.booproj
+*.userprefs
+
+# Archivos de usuario de Unity
+*.swp
+*.suo
+*.user
+*.userprefs
+
+# Archivos de configuración del proyecto
+*.pidb.meta
+*.pdb
+*.mdb
+
+# Archivos de cache de MonoDevelop
+*.dll
+*.exe
+*.app
+
+# Archivos de caché de Rider
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Archivos específicos de plataforma
+*.apk
+*.aab
+*.xcodeproj
+*.xcworkspace
+*.xcuserdata
+*.xcuserstate
+
+# Archivos de backups
+*.bak
+*.tmp
+*.orig
+
+# Otros archivos
+*.log
+*.log.*
+
+.vs/
