@@ -11,6 +11,7 @@ public class ShipShoot : MonoBehaviour
     public float maxDistance = 10f;
     public float shootSpeed = 5f;
     public float damagePerBullet = 5f;
+    public float bulletManaCost = 5f;
 
     private GameObject[] leftPreviews;
     private GameObject[] rightPreviews;
@@ -41,13 +42,13 @@ public class ShipShoot : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && ResourcesManager.Instance.SpendMana(bulletManaCost))
             leftPreviews = CreateShootPreviews(leftCannons);
 
         if (Input.GetKeyUp(KeyCode.Z))
             FireBullets(leftPreviews, leftCannons);
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && ResourcesManager.Instance.SpendMana(bulletManaCost))
             rightPreviews = CreateShootPreviews(rightCannons);
 
         if (Input.GetKeyUp(KeyCode.X))
@@ -93,6 +94,7 @@ public class ShipShoot : MonoBehaviour
                 // Crear la bala y asignar la posición objetivo
                 GameObject bullet = Instantiate(bulletPrefab, cannons[i].position, cannons[i].rotation);
                 bullet.transform.tag = "MyPlayerBullet";
+                ResourcesManager.Instance.SpendMana(bulletManaCost);
                 // Asignar la posición objetivo a la bala
                 Bullet bulletScript = bullet.GetComponent<Bullet>();
                 bulletScript.SetTarget(firePosition, shootSpeed);

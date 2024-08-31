@@ -233,7 +233,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4b66f21097323d44ab40669b2fb9c53d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 72d6335a9f2caac41b1346894ea61d3d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1202,6 +1202,7 @@ MonoBehaviour:
   maxDistance: 10
   shootSpeed: 5
   damagePerBullet: 5
+  bulletManaCost: 5
 --- !u!114 &3008528092452221554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1229,7 +1230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ad45c72f229b54cadc26bbc2c4ecd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 11400000, guid: 6537f8f9e646eb345908622ae8488187, type: 2}
 --- !u!1 &8648849705736633013
 GameObject:
   m_ObjectHideFlags: 0
