@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  wallet    String   @unique
+  username  String
+  games     Game[]
+}
+
+model Game {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  tokens      Token[]
+  nftContracts NFTContract[]
+}
+
+model Token {
+  id        Int      @id @default(autoincrement())
+  name      String
+  symbol    String
+  supply    Float
+  address   String   @unique
+  gameId    Int
+  game      Game     @relation(fields: [gameId], references: [id])
+}
+
+model NFTContract {
+  id        Int      @id @default(autoincrement())
+  address   String   @unique
+  gameId    Int
+  game      Game     @relation(fields: [gameId], references: [id])
+  collections NFTCollection[]
+}
+
+model NFTCollection {
+  id          Int      @id @default(autoincrement())
+  name        String
+  metadata    Json
+  contractId  Int
+  contract    NFTContract @relation(fields: [contractId], references: [id])
+}

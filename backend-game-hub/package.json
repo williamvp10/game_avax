@@ -1,0 +1,40 @@
+{
+  "name": "backend-game-hub_express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate:dev": "npx dotenv -e .env.local -- prisma migrate dev",
+    "migrate:test": "npx dotenv -e .env -- prisma migrate dev",
+    "db:push": "npx dotenv -e .env.local -- prisma db push",
+    "migrate:reset": "npx dotenv -e .env.local -- prisma migrate reset",
+    "db:test:seed": "npx dotenv -e .env.local -- prisma db seed",
+    "db:seed": "npx dotenv -e .env -- prisma db seed",
+    "prisma:generate": "npx dotenv -e .env.local -- prisma generate",
+    "prisma:studio": "npx dotenv -e .env.local -- prisma studio",
+    "production:build": "npx prisma generate && npx prisma migrate deploy && next build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@axelar-network/axelarjs-sdk": "^0.16.2",
+    "@openzeppelin/contracts": "^5.0.2",
+    "@prisma/client": "^5.19.0",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.2",
+    "express": "^4.19.2",
+    "hardhat": "^2.22.9",
+    "module-alias": "^2.2.3",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "prisma": "^5.19.0"
+  },
+  "_moduleAliases": {
+    "@dao": "api/dao",
+    "@controllers": "api/controllers"
+  }
+}
