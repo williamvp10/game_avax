@@ -2,11 +2,11 @@
 // Cargamos el módulo de express para poder crear rutas
 const express = require('express');
 // Cargamos el controlador
-const { createToken } = require('../controllers/createToken'); // Fix the file name to match the actual file name
-const { createCrossChainToken } = require('../controllers/createCrossChainToken'); // Fix the file name to match the actual file name
+const { createToken } = require('@controllers/createToken'); // Fix the file name to match the actual file name
+const { createCrossChainToken } = require('@controllers/createCrossChainToken'); // Fix the file name to match the actual file name
 
 //controllers NFT
-const { createNFTCollection } = require('../controllers/nfts/createNFTCollection');
+const { createNFTCollection } = require('@controllers/nfts/createNFTCollection');
 
 function descripcionApi(req, res) {
     return res.status(200).send({
@@ -54,6 +54,12 @@ api.post('/create-nft-collection',
     },    
     createNFTCollection
     );
+
+
+
+
+
+//
 
 // Exportamos la configuración
 module.exports = api;

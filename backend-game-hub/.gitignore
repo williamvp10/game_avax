@@ -19,3 +19,5 @@ ignition/deployments/chain-31337
 # studio code
 .vscode
 
+#prisma
+/prisma/migrations

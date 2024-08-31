@@ -1,5 +1,7 @@
 // Utilizar funcionalidades del Ecmascript 6
 'use strict'
+// Cargamos los módulos de express y body-parser
+require('module-alias/register');
 // *Cargamos el fichero app.js con la configuración de Express
 var app = require('./app');
 // Creamos la variable PORT para indicar el puerto en el que va a funcionar el servidor
