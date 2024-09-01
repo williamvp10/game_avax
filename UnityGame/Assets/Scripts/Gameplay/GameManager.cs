@@ -266,7 +266,9 @@ public class GameManager : MonoBehaviour
         if (playersInstantiation)
         {
             myPlayer = InstantiatePlayer(players[playerStats.skinId], myX, myY, myZ, "MyPlayer");
+            myPlayer.GetComponent<PlayerCollisionManager>().mySocketId = playerNetworkId.socketId;
             enemiePlayer = InstantiatePlayer(players[enemieSkinId], othX, othY, othZ, "EnemiePlayer");
+            enemiePlayer.GetComponent<PlayerCollisionManager>().mySocketId = enemieSocketId;
             ResourcesManager.Instance.SetUICanvas(myX, myPlayer);
 
             Tower[] towers = FindObjectsOfType<Tower>();

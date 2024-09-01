@@ -5,6 +5,8 @@ using UnityEngine.Timeline;
 
 public class PlayerCollisionManager : MonoBehaviour
 {
+    public string mySocketId;
+
     private PlayerLive playerLive;
     private ShipShoot shipShoot;
 
@@ -21,7 +23,8 @@ public class PlayerCollisionManager : MonoBehaviour
             GameManager.Instance.SendDamageDataToServer(shipShoot.damagePerBullet);
             collision.gameObject.GetComponent<Bullet>().StartBulletDestruction();
         }
-        /*if (collision.transform.tag.Equals("EnemieMinerOrMariner") && this.transform.tag == "MyPlayer")
+
+        if (collision.transform.tag.Equals("EnemieMinerOrMariner") && this.transform.tag == "MyPlayer")
         {
             MinerOrMariner mariner = collision.gameObject.GetComponent<MinerOrMariner>();
             GameManager.Instance.SendDamageDataToServer(mariner.minerOrMarinerDamage);
@@ -30,7 +33,14 @@ public class PlayerCollisionManager : MonoBehaviour
         if(this.transform.tag == "EnemiePlayer" && collision.transform.tag.Equals("EnemieMinerOrMariner"))
         {
             MinerOrMariner mariner = collision.gameObject.GetComponent<MinerOrMariner>();
-            mariner.DestroyMariner();
-        }*/
+            if (mariner.playerSocketIdCreator != mySocketId)
+                mariner.DestroyMariner();
+        }
+        if (this.transform.tag == "EnemiePlayer" && collision.transform.tag.Equals("MyMinerOrMariner"))
+        {
+            MinerOrMariner mariner = collision.gameObject.GetComponent<MinerOrMariner>();
+            if (mariner.playerSocketIdCreator != mySocketId)
+                mariner.DestroyMariner();
+        }
     }
 }
