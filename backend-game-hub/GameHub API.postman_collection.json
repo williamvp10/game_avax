@@ -1,0 +1,748 @@
+{
+	"info": {
+		"_postman_id": "547d301b-a19c-45c7-87cd-f1490883b958",
+		"name": "GameHub API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2629745",
+		"_collection_link": "https://winter-astronaut-360810.postman.co/workspace/My-Workspace~67cfee07-2db7-4477-8e83-ddc080949678/collection/2629745-547d301b-a19c-45c7-87cd-f1490883b958?action=share&source=collection_link&creator=2629745"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"wallet\": \"0x123456789\",\n    \"username\": \"testuser\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/users",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host}}/api/users/1",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by Wallet",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host}}/api/users/wallet/:wallet",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"wallet",
+								":wallet"
+							],
+							"variable": [
+								{
+									"key": "wallet",
+									"value": "0x123456789"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"updateduser\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/users/:userId",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{host}}/api/users/:userId",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Games",
+			"item": [
+				{
+					"name": "Create Game",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test Game\",\n    \"description\": \"This is a test game\",\n    \"userId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/games",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Games by User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host}}/api/users/:userId/games",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":userId",
+								"games"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Game",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Game\",\n    \"description\": \"Updated description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/games/:gameId",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"games",
+								":gameId"
+							],
+							"variable": [
+								{
+									"key": "gameId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Game",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{host}}/api/games/:gameId",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"games",
+								":gameId"
+							],
+							"variable": [
+								{
+									"key": "gameId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tokens",
+			"item": [
+				{
+					"name": "Create Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test Token\",\n    \"symbol\": \"TTK\",\n    \"supply\": 1000,\n    \"address\": \"0xTokenAddress\",\n    \"gameId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/tokens",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tokens by Game",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host}}/api/games/:gameId/tokens",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"games",
+								":gameId",
+								"tokens"
+							],
+							"variable": [
+								{
+									"key": "gameId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Token",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Token\",\n    \"symbol\": \"UTK\",\n    \"supply\": 2000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/tokens/:tokenId",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tokens",
+								":tokenId"
+							],
+							"variable": [
+								{
+									"key": "tokenId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Token",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/tokens/:tokenId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"tokens",
+								":tokenId"
+							],
+							"variable": [
+								{
+									"key": "tokenId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "NFTs",
+			"item": [
+				{
+					"name": "Create NFT Contract",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"0xNFTContractAddress\",\n    \"gameId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/nft-contracts",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"nft-contracts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create NFT Collection",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test Collection\",\n    \"metadata\": {\"description\": \"Test metadata\"},\n    \"contractId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/nft-collections",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"nft-collections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Collections by Contract",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/nft-contracts/:contractId/collections",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"nft-contracts",
+								":contractId",
+								"collections"
+							],
+							"variable": [
+								{
+									"key": "contractId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update NFT Collection",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Collection\",\n    \"metadata\": {\"description\": \"Updated metadata\"}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/nft-collections/:collectionId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"nft-collections",
+								":collectionId"
+							],
+							"variable": [
+								{
+									"key": "collectionId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete NFT Collection",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/nft-collections/:collectionId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"nft-collections",
+								":collectionId"
+							],
+							"variable": [
+								{
+									"key": "collectionId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "deloy_tokens",
+			"item": [
+				{
+					"name": "create-token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"MyToken\", \r\n    \"symbol\": \"MTK\", \r\n    \"decimals\": 18,\r\n    \"initialSupply\": 1000,\r\n    \"tokenOwner\": \"0x70997970C51812dc3A010C7d01b50e0d17dc79C8\",\r\n    \"networks\": [\"localhost\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/create-token",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"create-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-token Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"MyNFTCollection\",\r\n    \"symbol\": \"MNFT\",\r\n    \"initialOwner\": \"0x70997970C51812dc3A010C7d01b50e0d17dc79C8\",\r\n    \"maxSupply\": 1000,\r\n    \"networks\": [\"localhost\"],\r\n    \"initialURI\": \"https://my-nft-collection.com/{id}.json\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/create-nft-collection",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"create-nft-collection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-cross-chain-token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"MyToken Cross chain\", \r\n    \"symbol\": \"MTKCC\", \r\n    \"decimals\": 18,\r\n    \"initialSupply\": 1000,\r\n    \"tokenOwner\": \"0x70997970C51812dc3A010C7d01b50e0d17dc79C8\",\r\n    \"networks\": [\"localhost\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/create-cross-chain-token",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"create-cross-chain-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "game_sea_of_fortune",
+			"item": [
+				{
+					"name": "create-room",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"contractAddress\": \"0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0\",\r\n  \"network\": \"localhost\",\r\n  \"betAmount\": \"5000000000000000000\", // 5 Tokens en wei\r\n  \"mapOwner\": \"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/seaoffortune/create-room",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"seaoffortune",
+								"create-room"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registerTowerDestruction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"contractAddress\": \"0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0\",\r\n  \"network\": \"localhost\",\r\n  \"roomId\": \"1\",\r\n  \"player\": \"0x70997970C51812dc3A010C7d01b50e0d17dc79C8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/seaoffortune/register-tower-destruction",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"seaoffortune",
+								"register-tower-destruction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "declare-winner",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"contractAddress\": \"0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0\",\r\n  \"network\": \"localhost\",\r\n  \"roomId\": \"1\",\r\n  \"player\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/registerTowerDestruction",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"registerTowerDestruction"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "hi",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3800/api/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3800",
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

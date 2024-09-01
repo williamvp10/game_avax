@@ -23,7 +23,10 @@ async function createRoom(req, res) {
         // Ejecutar la función `registerRoom` y capturar el evento `RoomCreated`
         const eventArgs = await SC_Capture_Emit(contractInstance, 'registerRoom', 'RoomCreated', betAmountBigInt, data.mapOwner);
         console.log("Event args:", eventArgs);
-        res.status(200).json({ success: true, eventArgs });
+        res.status(200).json({
+            "roomId":eventArgs.split(",")[0],
+            "betAmount":eventArgs.split(",")[1],
+        });
     } catch (error) {
         console.error("Error creating room:", error);
         res.status(500).json({ success: false, error: error.message });
