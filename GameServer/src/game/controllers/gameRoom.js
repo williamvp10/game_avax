@@ -96,6 +96,18 @@ class GameRoom {
         });
     }
 
+    handlePlayerMineOrMinerFire(socketId, mineOrMinerData) {
+        //console.log(mineOrMinerData);
+        this.players.forEach(player => {
+            if (player.socketId != socketId) {
+                this.sendWebSocketMessage(player.socketId, 'spawnMineOrMiner', {
+                    shooterId: socketId,
+                    mineOrMinerData: mineOrMinerData
+                });
+            }
+        });
+    }
+
     updatePlayerHealth(socketId, damage) {
         const playerIndex = this.gameState.playerHealth.findIndex(player => player.socketId === socketId);
 
@@ -183,6 +195,16 @@ export function handlePlayerFire(socketId, roomId, bulletsData) {
     }
 
     gameRoom.handlePlayerFire(socketId, bulletsData);
+}
+
+export function handleMinerOrMarinerFire(socketId, roomId, mineOrMinerData) {
+    const gameRoom = getGameRoom(roomId);
+    if (!gameRoom) {
+        console.error(`Game room with ID ${roomId} not found`);
+        return;
+    }
+
+    gameRoom.handlePlayerMineOrMinerFire(socketId, mineOrMinerData);
 }
 
 export function handlePlayerDamage(socketId, roomId, damage) {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ShipShoot : MonoBehaviour
 {
@@ -134,5 +135,14 @@ public class ShipShoot : MonoBehaviour
         Rigidbody2D rb = minerOrMarinerInstance.GetComponent<Rigidbody2D>();
         if (rb != null)
             rb.velocity = spawnPointMinerOrMariner.transform.right * shootSpeed * 0.5f;
+
+        MinerSendData data = new MinerSendData
+        {
+            Position = spawnPosition,
+            Rotation = spawnRotation,
+            ShootSpeed = shootSpeed,
+        };
+
+        GameManager.Instance.SendMinerOrMarinerToServer(data);
     }
 }

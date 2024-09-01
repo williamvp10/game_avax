@@ -60,6 +60,31 @@ public class UpdatePlayerHealth
     public float damage;
 }
 
+[Serializable]
+public class MinerSendFinalData
+{
+    public string type;
+    public string socketId;
+    public string roomId;
+    public MinerSendData data;
+}
+
+[System.Serializable]
+public class MinerSendData
+{
+    public Vector3 Position;
+    public Quaternion Rotation;
+    public float ShootSpeed;
+}
+
+[System.Serializable]
+public class MinerRecievedData
+{
+    public Vector3 Position;
+    public Quaternion Rotation;
+    public float ShootSpeed;
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -75,6 +100,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject bulletPrefab;
     private BulletData[] bulletsData;
+
+    [SerializeField] private GameObject minerOrMarinePrefab;
+    private MinerRecievedData minerRecievedData;
 
     private WebSocket webSocket;
 
@@ -94,6 +122,7 @@ public class GameManager : MonoBehaviour
     private bool setOthPlayersPos = false;
     private bool bulletCreation = false;
     private bool updateHealthBars = false;
+    private bool mineOrMarinerCreation = false;
     private bool gameOver = false;
 
     [SerializeField] public PlayerStats playerStats;
@@ -185,6 +214,13 @@ public class GameManager : MonoBehaviour
                 bulletCreation = true;
             }
 
+            if (message == "spawnMineOrMiner")
+            {
+                string mineOrMinerDataJson = parsedData["data"]["mineOrMinerData"].ToString();
+                minerRecievedData = JsonConvert.DeserializeObject<MinerRecievedData>(mineOrMinerDataJson);
+                mineOrMarinerCreation = true;
+            }
+
             if (message == "updateHealth")
             {
                 foreach (JObject health in parsedData["data"]["playerHealth"])
@@ -234,8 +270,13 @@ public class GameManager : MonoBehaviour
         {
             foreach (var bulletData in bulletsData)
                 InstantiateBullet(bulletData);
-            //InstantiateBullet(bulletData);
             bulletCreation=false;
+        }
+
+        if (mineOrMarinerCreation)
+        {
+            InstantiateMineOrMiner(minerRecievedData);
+            mineOrMarinerCreation = false;
         }
 
         if (updateHealthBars)
@@ -285,6 +326,17 @@ public class GameManager : MonoBehaviour
         bulletScript.SetTarget(bulletData.TargetPosition, bulletData.ShootSpeed);
     }
 
+    void InstantiateMineOrMiner(MinerRecievedData minerRecievedData)
+    {
+        GameObject minerOrMarinerInstance = Instantiate(minerOrMarinePrefab, minerRecievedData.Position, minerRecievedData.Rotation);
+        minerOrMarinerInstance.tag = "EnemieMinerOrMariner"; // Cambia el tag si es necesario
+
+        // Aplicar la velocidad al Rigidbody2D
+        Rigidbody2D rb = minerOrMarinerInstance.GetComponent<Rigidbody2D>();
+        if (rb != null)
+            rb.velocity = minerOrMarinerInstance.transform.up * minerRecievedData.ShootSpeed * -0.5f;
+    }
+
     public void SendPositionUpdate(GameObject player)
     {
         //Debug.Log("Im sending to server: " + player.transform.position.x + " -- " + player.transform.position.y + " -- " + player.transform.eulerAngles.z);
@@ -322,6 +374,19 @@ public class GameManager : MonoBehaviour
             socketId = playerNetworkId.socketId,
             roomId = playerNetworkId.roomId,
             damage = damage
+        };
+        string jsonData = JsonUtility.ToJson(format);
+        webSocket.Send(jsonData);
+    }
+
+    public void SendMinerOrMarinerToServer(MinerSendData data)
+    {
+        MinerSendFinalData format = new MinerSendFinalData
+        {
+            type = "fireMinerOrMariner",
+            socketId = playerNetworkId.socketId,
+            roomId = playerNetworkId.roomId,
+            data = data,
         };
         string jsonData = JsonUtility.ToJson(format);
         webSocket.Send(jsonData);
