@@ -44,7 +44,7 @@ contract CrossChainToken is ERC20, ERC20Burnable, Ownable, ERC20Permit, AxelarEx
         gasService = IAxelarGasService(_gasService);
     }
 
-    function mint(address to, uint256 amount) public onlyOwner {
+    function mint(address to, uint256 amount) public /**onlyOwner*/ {
         _mint(to, amount);
     }
 
