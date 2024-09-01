@@ -970,7 +970,7 @@ Transform:
   m_GameObject: {fileID: 7360469891740848686}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.72897804, w: 0.6845371}
-  m_LocalPosition: {x: -2.3476782, y: 5.641694, z: 0.0042923116}
+  m_LocalPosition: {x: 0.007, y: -0.545, z: 0.0042923116}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1322,6 +1322,7 @@ MonoBehaviour:
   shootSpeed: 5
   damagePerBullet: 5
   bulletManaCost: 5
+  minerOrMarinerManaCost: 15
 --- !u!114 &3008528092452221554
 MonoBehaviour:
   m_ObjectHideFlags: 0

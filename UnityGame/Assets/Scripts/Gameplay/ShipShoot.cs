@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ShipShoot : MonoBehaviour
 {
@@ -127,6 +128,7 @@ public class ShipShoot : MonoBehaviour
         Quaternion spawnRotation = transform.rotation;
 
         GameObject minerOrMarinerInstance = Instantiate(minerOrMariner, spawnPosition, spawnRotation);
+        minerOrMarinerInstance.GetComponent<MinerOrMariner>().playerSocketIdCreator = GameManager.Instance.playerNetworkId.socketId;
         minerOrMarinerInstance.tag = "MyMinerOrMariner";
         ResourcesManager.Instance.SpendMana(minerOrMarinerManaCost);
 
@@ -134,5 +136,14 @@ public class ShipShoot : MonoBehaviour
         Rigidbody2D rb = minerOrMarinerInstance.GetComponent<Rigidbody2D>();
         if (rb != null)
             rb.velocity = spawnPointMinerOrMariner.transform.right * shootSpeed * 0.5f;
+
+        MinerSendData data = new MinerSendData
+        {
+            Position = spawnPosition,
+            Rotation = spawnRotation,
+            ShootSpeed = shootSpeed,
+        };
+
+        GameManager.Instance.SendMinerOrMarinerToServer(data);
     }
 }
