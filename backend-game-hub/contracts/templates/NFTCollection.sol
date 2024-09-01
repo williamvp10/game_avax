@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity >=0.8.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -19,9 +19,9 @@ contract NFTCollection is ERC1155, Ownable, ERC1155Supply {
     event CollectionCreated(uint256 indexed id, uint256 maxSupply);
     event TokenMinted(uint256 indexed id, address indexed account, uint256 amount);
 
-    constructor(string memory _name, string memory _symbol, address initialOwner, string memory initialURI) 
-        ERC1155(initialURI) 
-        Ownable(initialOwner) 
+    constructor(string memory _name, string memory _symbol, address _initialOwner, string memory _initialURI) 
+        ERC1155(_initialURI) 
+        Ownable(_initialOwner) 
     {
         name = _name;
         symbol = _symbol;

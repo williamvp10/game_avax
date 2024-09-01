@@ -35,6 +35,7 @@
   },
   "_moduleAliases": {
     "@dao": "api/dao",
-    "@controllers": "api/controllers"
+    "@controllers": "api/controllers",
+    "@models": "api/models"
   }
 }
