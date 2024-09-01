@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField] private NetworkId playerNetworkId;
+    [SerializeField] public NetworkId playerNetworkId;
     [SerializeField] private List<GameObject> players;
     private GameObject myPlayer;
     private GameObject enemiePlayer;
@@ -104,6 +104,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject minerOrMarinePrefab;
     private MinerRecievedData minerRecievedData;
 
+    private RecievedTowerDamage towerDamage;
+
     private WebSocket webSocket;
 
     private float myX;
@@ -116,6 +118,7 @@ public class GameManager : MonoBehaviour
     private float othZ;
     private float enemieHelath;
     private int enemieSkinId;
+    public string enemieSocketId;
 
     private bool playersInstantiation = false;
     private bool setMyPlayerPos = false;
@@ -123,6 +126,7 @@ public class GameManager : MonoBehaviour
     private bool bulletCreation = false;
     private bool updateHealthBars = false;
     private bool mineOrMarinerCreation = false;
+    private bool updateHealthTower = false;
     private bool gameOver = false;
 
     [SerializeField] public PlayerStats playerStats;
@@ -180,6 +184,7 @@ public class GameManager : MonoBehaviour
                         othY = y;
                         othZ = z;
                         enemieSkinId = skinId;
+                        enemieSocketId = socketId;
                     }
                 }
                 playersInstantiation = true;
@@ -234,6 +239,12 @@ public class GameManager : MonoBehaviour
                 updateHealthBars = true;
             }
 
+            if(message == "updateTowerHealth")
+            {
+                towerDamage = JsonConvert.DeserializeObject<RecievedTowerDamage>(parsedData["data"].ToString());
+                updateHealthTower = true;
+            }
+
             if (message == "gameOver")
             {
                 if (parsedData["data"]["winnerId"].ToString() == playerNetworkId.socketId)
@@ -257,6 +268,28 @@ public class GameManager : MonoBehaviour
             myPlayer = InstantiatePlayer(players[playerStats.skinId], myX, myY, myZ, "MyPlayer");
             enemiePlayer = InstantiatePlayer(players[enemieSkinId], othX, othY, othZ, "EnemiePlayer");
             ResourcesManager.Instance.SetUICanvas(myX, myPlayer);
+
+            Tower[] towers = FindObjectsOfType<Tower>();
+            foreach (Tower tower in towers)
+            {
+                if (ResourcesManager.Instance.isPlayerOne)
+                {
+                    // Si es el jugador 1
+                    if (tower.myTowerId >= 0 && tower.myTowerId <= 2)
+                        tower.playerSocketId = playerNetworkId.socketId;
+                    else if (tower.myTowerId >= 3 && tower.myTowerId <= 5)
+                        tower.playerSocketId = enemieSocketId;
+                }
+                else
+                {
+                    // Si no es el jugador 1 (es el jugador 2)
+                    if (tower.myTowerId >= 0 && tower.myTowerId <= 2)
+                        tower.playerSocketId = enemieSocketId;
+                    else if (tower.myTowerId >= 3 && tower.myTowerId <= 5)
+                        tower.playerSocketId = playerNetworkId.socketId;
+                }
+            }
+
             playersInstantiation = false;
         }
 
@@ -287,6 +320,32 @@ public class GameManager : MonoBehaviour
             enemiePlayer.GetComponent<PlayerLive>().playerLive = enemieHelath;
             enemiePlayer.GetComponent<PlayerLive>().UpdateLiveeBarUI();
             updateHealthBars = false;
+        }
+
+        if (updateHealthTower)
+        {
+            string towerType = towerDamage.towerType;
+            int towerId = towerDamage.myTowerId;
+            List<RecievedTowerHealth> towerHealthArray = towerDamage.towerHealth;
+            Tower[] allTowers = FindObjectsOfType<Tower>();
+
+            foreach (var tower in towerHealthArray)
+            {
+                string socketId = tower.socketId;
+                float actualLive = tower.actualLive;
+                float maxLive = tower.maxLive;
+
+                foreach (Tower towerObject in allTowers)
+                {
+                    if (towerObject.myTowerId == towerId)
+                    {
+                        towerObject.UpdateTowerHealth(actualLive, maxLive);
+                        break; // Si ya se encontró la torre y se actualizó, se sale del bucle
+                    }
+                }
+            }
+
+            updateHealthTower = false;
         }
 
         if (gameOver)
@@ -330,6 +389,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject minerOrMarinerInstance = Instantiate(minerOrMarinePrefab, minerRecievedData.Position, minerRecievedData.Rotation);
         minerOrMarinerInstance.tag = "EnemieMinerOrMariner"; // Cambia el tag si es necesario
+        minerOrMarinerInstance.GetComponent<MinerOrMariner>().playerSocketIdCreator = enemieSocketId;
 
         // Aplicar la velocidad al Rigidbody2D
         Rigidbody2D rb = minerOrMarinerInstance.GetComponent<Rigidbody2D>();
@@ -389,6 +449,12 @@ public class GameManager : MonoBehaviour
             data = data,
         };
         string jsonData = JsonUtility.ToJson(format);
+        webSocket.Send(jsonData);
+    }
+
+    public void SendDamageTowerDataToServer(SendTowerDamage data)
+    {   
+        string jsonData = JsonUtility.ToJson(data);
         webSocket.Send(jsonData);
     }
 

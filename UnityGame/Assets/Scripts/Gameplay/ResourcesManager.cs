@@ -25,7 +25,7 @@ public class ResourcesManager : MonoBehaviour
 
     public float myActualMana;
 
-    private bool isPlayerOne = false;
+    public bool isPlayerOne = false;
 
     private void Awake()
     {

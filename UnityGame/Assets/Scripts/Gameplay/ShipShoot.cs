@@ -128,6 +128,7 @@ public class ShipShoot : MonoBehaviour
         Quaternion spawnRotation = transform.rotation;
 
         GameObject minerOrMarinerInstance = Instantiate(minerOrMariner, spawnPosition, spawnRotation);
+        minerOrMarinerInstance.GetComponent<MinerOrMariner>().playerSocketIdCreator = GameManager.Instance.playerNetworkId.socketId;
         minerOrMarinerInstance.tag = "MyMinerOrMariner";
         ResourcesManager.Instance.SpendMana(minerOrMarinerManaCost);
 

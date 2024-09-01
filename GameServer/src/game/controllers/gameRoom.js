@@ -16,6 +16,18 @@ class GameRoom {
             playerHealth: [
                 { socketId: player1.socketId, actualLive: 100, maxLive: 100 },
                 { socketId: player2.socketId, actualLive: 100, maxLive: 100 }
+            ],
+            tower1: [
+                { socketId: player1.socketId, actualLive: 300, maxLive: 300 },
+                { socketId: player2.socketId, actualLive: 300, maxLive: 300 }
+            ],
+            tower2: [
+                { socketId: player1.socketId, actualLive: 500, maxLive: 500 },
+                { socketId: player2.socketId, actualLive: 500, maxLive: 500 }
+            ],
+            principalTower: [
+                { socketId: player1.socketId, actualLive: 60, maxLive: 60 },
+                { socketId: player2.socketId, actualLive: 60, maxLive: 60 }
             ]
         };
         this.setupGame();
@@ -134,6 +146,67 @@ class GameRoom {
         }
     }
 
+    updateTowerHealth(socketId, towerType, myTowerId, damage) {
+        let towerArray;
+        switch (towerType) {
+            case 'tower1':
+                towerArray = this.gameState.tower1;
+                break;
+            case 'tower2':
+                towerArray = this.gameState.tower2;
+                break;
+            case 'principalTower':
+                towerArray = this.gameState.principalTower;
+                break;
+            default:
+                console.error(`Unknown tower type: ${towerType}`);
+                return;
+        }
+    
+        // Encuentra la torre específica del jugador
+        const towerIndex = towerArray.findIndex(tower => tower.socketId === socketId);
+    
+        if (towerIndex !== -1) {
+            // Resta el daño a la vida actual de la torre
+            towerArray[towerIndex].actualLive -= damage;
+    
+            // Asegura que la vida de la torre no caiga por debajo de cero
+            if (towerArray[towerIndex].actualLive < 0) {
+                towerArray[towerIndex].actualLive = 0;
+            }
+    
+            // Envía la vida actualizada de la torre a ambos jugadores
+            this.players.forEach(player => {
+                this.sendWebSocketMessage(player.socketId, 'updateTowerHealth', {
+                    towerType: towerType,
+                    myTowerId: myTowerId,
+                    towerHealth: towerArray
+                });
+            });
+    
+            // Verifica si la torre ha sido destruida
+            if (towerArray[towerIndex].actualLive === 0) {
+                this.handleTowerDestroyed(socketId, towerType, myTowerId);
+            }
+        }
+    }
+    
+    handleTowerDestroyed(socketId, towerType, myTowerId) {
+        // Aquí puedes manejar la lógica cuando una torre es destruida
+        console.log(`Tower ${towerType} for player ${socketId} has been destroyed.`);
+    
+        // Enviar notificación a ambos jugadores
+        this.players.forEach(player => {
+            this.sendWebSocketMessage(player.socketId, 'towerDestroyed', {
+                socketId: socketId,
+                towerType: towerType,
+                myTowerId: myTowerId
+            });
+        });
+    
+        // Aquí puedes agregar cualquier lógica adicional, como verificar si todas las torres han sido destruidas y finalizar el juego si es necesario
+    }
+
     endGame(loserSocketId) {
         const winner = this.players.find(player => player.socketId !== loserSocketId);
         const loser = this.players.find(player => player.socketId === loserSocketId);
@@ -215,4 +288,14 @@ export function handlePlayerDamage(socketId, roomId, damage) {
     }
 
     gameRoom.updatePlayerHealth(socketId, damage);
+}
+
+export function handleTowerDamage(socketId, roomId, towerType, myTowerId, damage) {
+    const gameRoom = getGameRoom(roomId);
+    if (!gameRoom) {
+        console.error(`Game room with ID ${roomId} not found`);
+        return;
+    }
+
+    gameRoom.updateTowerHealth(socketId, towerType, myTowerId, damage);
 }

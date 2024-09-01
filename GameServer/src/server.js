@@ -4,7 +4,7 @@ import WebSocket, { WebSocketServer } from 'ws';
 import { v4 as uuidv4 } from 'uuid';
 import matchmakingRouter from './matchmaking/routes/matchmakingRoutes.js';
 
-import { handleReadyToStart, getGameRoom, handlePlayerFire, handlePlayerDamage, handleMinerOrMarinerFire } from './game/controllers/gameRoom.js';
+import { handleReadyToStart, getGameRoom, handlePlayerFire, handlePlayerDamage, handleMinerOrMarinerFire, handleTowerDamage } from './game/controllers/gameRoom.js';
 
 //const matchmakingService = require('./matchmaking/index');
 
@@ -42,6 +42,9 @@ wss.on('connection', (ws) => {
                 break;
             case 'fireMinerOrMariner':
                 handleMinerOrMarinerFire(parsedMessage.socketId, parsedMessage.roomId, parsedMessage.data);
+                break;
+            case 'towerDamage':
+                handleTowerDamage(parsedMessage.socketId, parsedMessage.roomId, parsedMessage.towerType, parsedMessage.myTowerId, parsedMessage.damage);
                 break;
             default:
                 console.log(`Received unhandled message type: ${parsedMessage.type}`);
