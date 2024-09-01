@@ -11,6 +11,8 @@ TagManager:
   - EnemiePlayer
   - MyPlayerBullet
   - EnemiePlayerBullet
+  - MyMinerOrMariner
+  - EnemieMinerOrMariner
   layers:
   - Default
   - TransparentFX

@@ -23,6 +23,8 @@ public class ResourcesManager : MonoBehaviour
     private float player1CurrentMana;
     private float player2CurrentMana;
 
+    public float myActualMana;
+
     private bool isPlayerOne = false;
 
     private void Awake()
@@ -30,6 +32,7 @@ public class ResourcesManager : MonoBehaviour
         Instance = this;
         player1CurrentMana = maxMana;
         player2CurrentMana = maxMana;
+        myActualMana = maxMana;
     }
 
     private void Start()
@@ -45,11 +48,13 @@ public class ResourcesManager : MonoBehaviour
             if (isPlayerOne)
             {
                 player1CurrentMana = Mathf.Min(player1CurrentMana + manaIncrement, maxMana);
+                myActualMana = player1CurrentMana;
                 UpdateManaUI(player1ResourcesImage, player1CurrentMana);
             }
             else
             {
                 player2CurrentMana = Mathf.Min(player2CurrentMana + manaIncrement, maxMana);
+                myActualMana = player2CurrentMana;
                 UpdateManaUI(player2ResourcesImage, player2CurrentMana);
             }
         }
@@ -82,6 +87,7 @@ public class ResourcesManager : MonoBehaviour
             if (player1CurrentMana >= amount)
             {
                 player1CurrentMana -= amount;
+                myActualMana = player1CurrentMana;
                 UpdateManaUI(player1ResourcesImage, player1CurrentMana);
                 return true;
             }
@@ -91,6 +97,7 @@ public class ResourcesManager : MonoBehaviour
             if (player2CurrentMana >= amount)
             {
                 player2CurrentMana -= amount;
+                myActualMana = player2CurrentMana;
                 UpdateManaUI(player2ResourcesImage, player2CurrentMana);
                 return true;
             }

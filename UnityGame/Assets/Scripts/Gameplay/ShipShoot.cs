@@ -8,10 +8,15 @@ public class ShipShoot : MonoBehaviour
     public Transform[] rightCannons;
     public GameObject shootPreviewPrefab;
     public GameObject bulletPrefab;
+
+    public GameObject spawnPointMinerOrMariner;
+    public GameObject minerOrMariner;
+
     public float maxDistance = 10f;
     public float shootSpeed = 5f;
     public float damagePerBullet = 5f;
     public float bulletManaCost = 5f;
+    public float minerOrMarinerManaCost = 15f;
 
     private GameObject[] leftPreviews;
     private GameObject[] rightPreviews;
@@ -37,18 +42,21 @@ public class ShipShoot : MonoBehaviour
 
             if (Input.GetKey(KeyCode.X))
                 UpdateShootPreview(rightPreviews, rightCannons);
+
+            if (Input.GetKeyDown(KeyCode.C) && ResourcesManager.Instance.myActualMana > minerOrMarinerManaCost)
+                FireMinerOrMariner();
         }
     }
 
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && ResourcesManager.Instance.SpendMana(bulletManaCost))
+        if (Input.GetKeyDown(KeyCode.Z) && ResourcesManager.Instance.myActualMana > bulletManaCost)
             leftPreviews = CreateShootPreviews(leftCannons);
 
         if (Input.GetKeyUp(KeyCode.Z))
             FireBullets(leftPreviews, leftCannons);
 
-        if (Input.GetKeyDown(KeyCode.X) && ResourcesManager.Instance.SpendMana(bulletManaCost))
+        if (Input.GetKeyDown(KeyCode.X) && ResourcesManager.Instance.myActualMana > bulletManaCost)
             rightPreviews = CreateShootPreviews(rightCannons);
 
         if (Input.GetKeyUp(KeyCode.X))
@@ -110,5 +118,21 @@ public class ShipShoot : MonoBehaviour
         }
 
         GameManager.Instance.SendBulletsDataToServer(bulletsData);
+    }
+
+    private void FireMinerOrMariner()
+    {
+        // Usar el punto de spawn para la posición y la rotación del objeto padre para la dirección
+        Vector3 spawnPosition = spawnPointMinerOrMariner.transform.position;
+        Quaternion spawnRotation = transform.rotation;
+
+        GameObject minerOrMarinerInstance = Instantiate(minerOrMariner, spawnPosition, spawnRotation);
+        minerOrMarinerInstance.tag = "MyMinerOrMariner";
+        ResourcesManager.Instance.SpendMana(minerOrMarinerManaCost);
+
+        // Lanzar el minerOrMariner como un proyectil
+        Rigidbody2D rb = minerOrMarinerInstance.GetComponent<Rigidbody2D>();
+        if (rb != null)
+            rb.velocity = spawnPointMinerOrMariner.transform.right * shootSpeed * 0.5f;
     }
 }
