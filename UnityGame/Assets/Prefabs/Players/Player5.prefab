@@ -233,7 +233,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4b66f21097323d44ab40669b2fb9c53d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd6acb19c01558b4eb6e2dcd13573896, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -945,6 +945,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &7360469891740848686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5395279504461472760}
+  m_Layer: 0
+  m_Name: Miner/Mariner Shoot
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5395279504461472760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360469891740848686}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0.72897804, w: 0.6845371}
+  m_LocalPosition: {x: -2.3476782, y: 5.641694, z: 0.0042923116}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3967176331808099504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8312945599520534790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,6 +1184,7 @@ Transform:
   - {fileID: 9207953069501860147}
   - {fileID: 7781715811909522920}
   - {fileID: 6570390204351782719}
+  - {fileID: 5395279504461472760}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!50 &1635451066223816695
@@ -1284,9 +1316,12 @@ MonoBehaviour:
   - {fileID: 8906882826737414579}
   shootPreviewPrefab: {fileID: 4378437029663723178, guid: 704c838dd7c927b4eac343fdfc4cf76b, type: 3}
   bulletPrefab: {fileID: 967505696593139775, guid: 1363e9f6f704c82458548de01f3abd65, type: 3}
+  spawnPointMinerOrMariner: {fileID: 7360469891740848686}
+  minerOrMariner: {fileID: 4304748055593005976, guid: 23fc7f0c934f3e24fb0e4ba2ec1a7b88, type: 3}
   maxDistance: 10
   shootSpeed: 5
   damagePerBullet: 5
+  bulletManaCost: 5
 --- !u!114 &3008528092452221554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1314,7 +1349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ad45c72f229b54cadc26bbc2c4ecd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 11400000, guid: 6537f8f9e646eb345908622ae8488187, type: 2}
 --- !u!1 &8648849705736633013
 GameObject:
   m_ObjectHideFlags: 0

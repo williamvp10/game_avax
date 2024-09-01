@@ -220,6 +220,7 @@ public class GameManager : MonoBehaviour
         {
             myPlayer = InstantiatePlayer(players[playerStats.skinId], myX, myY, myZ, "MyPlayer");
             enemiePlayer = InstantiatePlayer(players[enemieSkinId], othX, othY, othZ, "EnemiePlayer");
+            ResourcesManager.Instance.SetUICanvas(myX, myPlayer);
             playersInstantiation = false;
         }
 

@@ -25,4 +25,10 @@ public class PlayerLive : MonoBehaviour
     {
         liveBar.fillAmount = playerLive/maxPlayerLive;
     }
+
+    public void SetNewLiveBar(Image newLiveBar)
+    {
+        liveBar = newLiveBar;
+        UpdateLiveeBarUI();
+    }
 }

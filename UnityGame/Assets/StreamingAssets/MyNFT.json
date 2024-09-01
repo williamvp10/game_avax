@@ -23,7 +23,7 @@
             },
             {
                 "trait_type": "MaxSpeed",
-                "value": 4
+                "value": 0.8
             },
             {
                 "trait_type": "Acceleration",
@@ -35,7 +35,7 @@
             },
             {
                 "trait_type": "RotationSpeed",
-                "value": 40
+                "value": 25
             },
             {
                 "trait_type": "ShipLevel",
@@ -71,11 +71,11 @@
             },
             {
                 "trait_type": "MaxSpeed",
-                "value": 4
+                "value": 0.8
             },
             {
                 "trait_type": "Acceleration",
-                "value": 1.5
+                "value": 0.5
             },
             {
                 "trait_type": "Deceleration",
@@ -83,7 +83,7 @@
             },
             {
                 "trait_type": "RotationSpeed",
-                "value": 80
+                "value": 25
             },
             {
                 "trait_type": "ShipLevel",
@@ -119,11 +119,11 @@
             },
             {
                 "trait_type": "MaxSpeed",
-                "value": 4
+                "value": 0.8
             },
             {
                 "trait_type": "Acceleration",
-                "value": 1.5
+                "value": 0.5
             },
             {
                 "trait_type": "Deceleration",
@@ -131,7 +131,7 @@
             },
             {
                 "trait_type": "RotationSpeed",
-                "value": 80
+                "value": 25
             },
             {
                 "trait_type": "ShipLevel",
@@ -167,11 +167,11 @@
             },
             {
                 "trait_type": "MaxSpeed",
-                "value": 4
+                "value": 0.8
             },
             {
                 "trait_type": "Acceleration",
-                "value": 1.5
+                "value": 0.5
             },
             {
                 "trait_type": "Deceleration",
@@ -179,7 +179,7 @@
             },
             {
                 "trait_type": "RotationSpeed",
-                "value": 80
+                "value": 25
             },
             {
                 "trait_type": "ShipLevel",
@@ -215,11 +215,11 @@
             },
             {
                 "trait_type": "MaxSpeed",
-                "value": 4
+                "value": 0.8
             },
             {
                 "trait_type": "Acceleration",
-                "value": 1.5
+                "value": 0.5
             },
             {
                 "trait_type": "Deceleration",
@@ -227,7 +227,7 @@
             },
             {
                 "trait_type": "RotationSpeed",
-                "value": 80
+                "value": 25
             },
             {
                 "trait_type": "ShipLevel",
@@ -263,11 +263,11 @@
             },
             {
                 "trait_type": "MaxSpeed",
-                "value": 4
+                "value": 0.8
             },
             {
                 "trait_type": "Acceleration",
-                "value": 1.5
+                "value": 0.5
             },
             {
                 "trait_type": "Deceleration",
@@ -275,7 +275,7 @@
             },
             {
                 "trait_type": "RotationSpeed",
-                "value": 80
+                "value": 25
             },
             {
                 "trait_type": "ShipLevel",
