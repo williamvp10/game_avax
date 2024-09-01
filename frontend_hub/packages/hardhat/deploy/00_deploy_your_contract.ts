@@ -2,43 +2,230 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { Contract } from "ethers";
 
-/**
- * Deploys a contract named "YourContract" using the deployer account and
- * constructor arguments set to the deployer address
- *
- * @param hre HardhatRuntimeEnvironment object.
- */
-const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  /*
-    On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
-
-    When deploying to live networks (e.g `yarn deploy --network sepolia`), the deployer account
-    should have sufficient balance to pay for the gas fees for contract creation.
-
-    You can generate a random account with `yarn generate` which will fill DEPLOYER_PRIVATE_KEY
-    with a random private key in the .env file (then used on hardhat.config.ts)
-    You can run the `yarn account` command to check your balance in every network.
-  */
-  const { deployer } = await hre.getNamedAccounts();
-  const { deploy } = hre.deployments;
-
-  await deploy("YourContract", {
-    from: deployer,
-    // Contract constructor arguments
-    args: [deployer],
-    log: true,
-    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
-    // automatically mining the contract deployment transaction. There is no effect on live networks.
-    autoMine: true,
-  });
-
-  // Get the deployed contract to interact with it after deploying.
-  const yourContract = await hre.ethers.getContract<Contract>("YourContract", deployer);
-  console.log("👋 Initial greeting:", await yourContract.greeting());
+const axelarNetworks: { [key: string]: any } = {
+  "localhost": {
+    "ethereum_Sepolia": {
+      "chainId": 31337, // Chain ID for Hardhat localhost
+      "axelarName": "ethereum-sepolia",
+      "gatewayAddress": "0xe432150cce91c13a887f7D836923d5597adD8E31",
+      "gasServiceAddress": "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6",
+    }
+  },
+  "testnet": {
+    "ethereum_Sepolia": {
+      "chainId": 11155111,
+      "axelarName": "ethereum-sepolia",
+      "gatewayAddress": "0xe432150cce91c13a887f7D836923d5597adD8E31",
+      "gasServiceAddress": "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6",
+    },
+    "avalanche_fuji": {
+      "chainId": 43113,
+      "axelarName": "Avalanche",
+      "gatewayAddress": "0xC249632c2D40b9001FE907806902f63038B737Ab",
+      "gasServiceAddress": "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6",
+    },
+  }
 };
 
-export default deployYourContract;
+const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+  const { deployer } = await hre.getNamedAccounts();
+  const { deploy } = hre.deployments;
+  const { ethers, network } = hre;
+  console.log("Deploying contracts with account:", deployer, network.name);
+  const networkConfig = axelarNetworks[network.name];
 
-// Tags are useful if you have multiple deploy files and only want to run one of them.
-// e.g. yarn deploy --tags YourContract
-deployYourContract.tags = ["YourContract"];
+  // Variables comunes
+  const feePercentage = 2;
+  const mapOwnerPercentage = 1;
+  const communityPercentage = 4;
+  const pointsPercentage = 35;
+  const winnerPercentage = 60;
+  const communityWallet = "0x97CBFB45b75F7bc7505bb642566cC96F50E67ffE";  // Dirección de la wallet de la comunidad
+
+  let sepoliaDeployments: { [key: string]: string } = {};
+  // Paso 1: Despliegue en localhost
+  if (network.name === "localhost") {
+    const { gatewayAddress, gasServiceAddress } = networkConfig["ethereum_Sepolia"];
+
+    const initialSupply = 21000000;  // Suministro inicial
+    const tokenDeployment = await deploy("CrossChainToken", {
+      from: deployer,
+      args: ["Sea of Fortune Battle", "SFB", initialSupply, deployer, gatewayAddress, gasServiceAddress],
+      log: true,
+      autoMine: true,
+    });
+
+    const tokenAddress = tokenDeployment.address;
+    console.log(`Token deployed at address: ${tokenAddress}`);
+
+    const nftCollectionDeployment = await deploy("CrossChainNFTCollection", {
+      from: deployer,
+      args: ["Sea of Fortune Ship", "SFS", deployer, "https://metadata-uri.com/", gatewayAddress, gasServiceAddress],
+      log: true,
+      autoMine: true,
+    });
+
+    const nftCollectionAddress = nftCollectionDeployment.address;
+    console.log(`NFT Collection deployed at address: ${nftCollectionAddress}`);
+
+    const seaFortuneDeployment = await deploy("SeaFortune", {
+      from: deployer,
+      args: [
+        tokenAddress,
+        communityWallet,
+        feePercentage,
+        mapOwnerPercentage,
+        communityPercentage,
+        pointsPercentage,
+        winnerPercentage,
+        gatewayAddress,
+        gasServiceAddress,
+      ],
+      log: true,
+      autoMine: true,
+    });
+
+    const seaFortuneAddress = seaFortuneDeployment.address;
+    console.log("SeaFortune deployed at:", seaFortuneAddress);
+    
+    return; // No se necesita configuración cross-chain para localhost
+  }
+
+  // Paso 2: Despliegue en Sepolia
+  if (network.name === "ethereum_Sepolia") {
+    const { gatewayAddress, gasServiceAddress } = networkConfig["ethereum_Sepolia"];
+
+    const initialSupply = 21000000;  // Suministro inicial
+    const tokenDeployment = await deploy("CrossChainToken", {
+      from: deployer,
+      args: ["Sea of Fortune Battle", "SFB", initialSupply, deployer, gatewayAddress, gasServiceAddress],
+      log: true,
+      autoMine: true,
+    });
+
+    const tokenAddress = tokenDeployment.address;
+    console.log(`Token deployed at address: ${tokenAddress}`);
+
+    const nftCollectionDeployment = await deploy("CrossChainNFTCollection", {
+      from: deployer,
+      args: ["Sea of Fortune Ship", "SFS", deployer, "https://metadata-uri.com/", gatewayAddress, gasServiceAddress],
+      log: true,
+      autoMine: true,
+    });
+
+    const nftCollectionAddress = nftCollectionDeployment.address;
+    console.log(`NFT Collection deployed at address: ${nftCollectionAddress}`);
+
+    const seaFortuneDeployment = await deploy("SeaFortune", {
+      from: deployer,
+      args: [
+        tokenAddress,
+        communityWallet,
+        feePercentage,
+        mapOwnerPercentage,
+        communityPercentage,
+        pointsPercentage,
+        winnerPercentage,
+        gatewayAddress,
+        gasServiceAddress,
+      ],
+      log: true,
+      autoMine: true,
+    });
+
+    const seaFortuneAddress = seaFortuneDeployment.address;
+    console.log("SeaFortune deployed at:", seaFortuneAddress);
+
+    // Guardar las direcciones desplegadas en Sepolia para configurarlas después
+    sepoliaDeployments = {
+      tokenAddress,
+      nftCollectionAddress,
+      seaFortuneAddress
+    };
+  }
+
+  // Paso 2: Despliegue en Avalanche Fuji
+  if (network.name === "avalanche_fuji") {
+    const { gatewayAddress, gasServiceAddress } = networkConfig["avalanche_fuji"];
+
+    const initialSupply = 21000000;  // Suministro inicial
+    const tokenDeployment = await deploy("CrossChainToken", {
+      from: deployer,
+      args: ["Sea of Fortune Battle", "SFB", initialSupply, deployer, gatewayAddress, gasServiceAddress],
+      log: true,
+      autoMine: true,
+    });
+
+    const tokenAddress = tokenDeployment.address;
+    console.log(`Token deployed at address: ${tokenAddress}`);
+
+    const nftCollectionDeployment = await deploy("CrossChainNFTCollection", {
+      from: deployer,
+      args: ["Sea of Fortune Ship", "SFS", deployer, "https://metadata-uri.com/", gatewayAddress, gasServiceAddress],
+      log: true,
+      autoMine: true,
+    });
+
+    const nftCollectionAddress = nftCollectionDeployment.address;
+    console.log(`NFT Collection deployed at address: ${nftCollectionAddress}`);
+
+    const seaFortuneDeployment = await deploy("SeaFortune", {
+      from: deployer,
+      args: [
+        tokenAddress,
+        communityWallet,
+        feePercentage,
+        mapOwnerPercentage,
+        communityPercentage,
+        pointsPercentage,
+        winnerPercentage,
+        gatewayAddress,
+        gasServiceAddress,
+      ],
+      log: true,
+      autoMine: true,
+    });
+
+    const seaFortuneAddress = seaFortuneDeployment.address;
+    console.log("SeaFortune deployed at:", seaFortuneAddress);
+
+    // Configurar direcciones de confianza para contratos en Avalanche Fuji y Sepolia
+    const crossChainNFTCollection = await ethers.getContract<Contract>("CrossChainNFTCollection", deployer);
+    await crossChainNFTCollection.setTrustedRemote(networkConfig["ethereum_Sepolia"].axelarName, sepoliaDeployments.nftCollectionAddress);
+    await crossChainNFTCollection.setTrustedRemote(networkConfig["avalanche_fuji"].axelarName, nftCollectionAddress);
+    console.log("Trusted remotes set for CrossChainNFTCollection on Avalanche Fuji");
+
+    const seaFortune = await ethers.getContract<Contract>("SeaFortune", deployer);
+    await seaFortune.setTrustedRemote(networkConfig["ethereum_Sepolia"].axelarName, sepoliaDeployments.seaFortuneAddress);
+    await seaFortune.setTrustedRemote(networkConfig["avalanche_fuji"].axelarName, seaFortuneAddress);
+    console.log("Trusted remotes set for SeaFortune on Avalanche Fuji");
+
+    // Configurar el crossChainToken
+    const crossChainToken = await ethers.getContract<Contract>("CrossChainToken", deployer);
+    await crossChainToken.setTrustedRemote(networkConfig["ethereum_Sepolia"].axelarName, sepoliaDeployments.tokenAddress);
+    await crossChainToken.setTrustedRemote(networkConfig["avalanche_fuji"].axelarName, tokenAddress);
+    console.log("Trusted remote set for CrossChainToken on Avalanche Fuji");
+
+  }
+
+  // Paso 3: Configurar Sepolia después de Avalanche
+  if (network.name === "ethereum_Sepolia") {
+    const crossChainNFTCollection = await ethers.getContract<Contract>("CrossChainNFTCollection", deployer);
+    await crossChainNFTCollection.setTrustedRemote(networkConfig["avalanche_fuji"].axelarName, sepoliaDeployments.nftCollectionAddress);
+    console.log("Trusted remote set for CrossChainNFTCollection on Sepolia");
+
+    const seaFortune = await ethers.getContract<Contract>("SeaFortune", deployer);
+    await seaFortune.setTrustedRemote(networkConfig["avalanche_fuji"].axelarName, sepoliaDeployments.seaFortuneAddress);
+    console.log("Trusted remote set for SeaFortune on Sepolia");
+
+    // Configurar el crossChainToken
+    const crossChainToken = await ethers.getContract<Contract>("CrossChainToken", deployer);
+    await crossChainToken.setTrustedRemote(networkConfig["avalanche_fuji"].axelarName, sepoliaDeployments.tokenAddress);
+    console.log("Trusted remote set for CrossChainToken on Sepolia");
+
+  }
+};
+
+export default deployContracts;
+
+deployContracts.tags = ["CrossChainToken", "CrossChainNFTCollection", "SeaFortune"];
