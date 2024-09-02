@@ -54,6 +54,10 @@ const config: HardhatUserConfig = {
       url: `https://eth-sepolia.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
     },
+    avalanche_fuji: {
+      url: `https://api.avax-test.network/ext/bc/C/rpc`,
+      accounts: [deployerPrivateKey],
+    },
     arbitrum: {
       url: `https://arb-mainnet.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],

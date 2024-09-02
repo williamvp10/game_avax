@@ -4,7 +4,7 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon, BugAntIcon, PuzzlePieceIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BugAntIcon, PuzzlePieceIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -24,15 +24,16 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/game",
     icon: <PuzzlePieceIcon className="h-4 w-4" />,
   },
-  {
+  /*{
     label: "Room",
     href: "/createRoom",
     icon: <PuzzlePieceIcon className="h-4 w-4" />,
   },
+  */
   {
     label: "Minter Token",
     href: "/mint_token",
-    icon: <PuzzlePieceIcon className="h-4 w-4" />,
+    icon: <CurrencyDollarIcon className="h-4 w-4" />,
   },
   {
     label: "Debug Contracts",
