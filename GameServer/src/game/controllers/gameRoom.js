@@ -225,7 +225,7 @@ class GameRoom {
                 try {
                     await axios.post(`${serverUrl}/api/seaoffortune/register-tower-destruction`, {
                         contractAddress: process.env.CONTRACT_SEA_FORTUNE_ADDRESS,
-                        network: "localhost",
+                        network: process.env.BLOCKCHAIN_NETWORK,
                         roomId: this.web3RoomId,
                         player: player.walletAddress
                     }, {
@@ -262,7 +262,7 @@ class GameRoom {
         try {
             await axios.post(`${serverUrl}/api/seaoffortune/declare-winner`, {
                 contractAddress: process.env.CONTRACT_SEA_FORTUNE_ADDRESS,
-                network: "localhost",
+                network: process.env.BLOCKCHAIN_NETWORK,
                 roomId: this.web3RoomId,
                 winner: winner.walletAddress
             }, {
@@ -295,7 +295,7 @@ export async function createGameRoom(player1, player2) {
     try {
         const response = await axios.post(`${serverUrl}/api/seaoffortune/create-room`, {
             contractAddress: process.env.CONTRACT_SEA_FORTUNE_ADDRESS,
-            network: "localhost",
+            network: process.env.BLOCKCHAIN_NETWORK,
             betAmount: "5000000000000000000",
             mapOwner: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
         }, {
