@@ -2,7 +2,9 @@
 
 ## Descripción del Proyecto
 
-**Sea of Fortune** es un emocionante videojuego web3 de batalla de barcos, donde los jugadores se enfrentan en alta mar para recolectar esmeraldas y reclamar la gloria. Los jugadores deberán tener un NFT que represente su barco para poder participar en estas épicas batallas, utilizando mecánicas de juego inmersivas y estratégicas.
+**Sea of Fortune** es un videojuego de aventura y estrategia ambientado en los misteriosos y turbulentos mares del Atlántico. El juego transporta a los jugadores al mítico Reino de Esmeraldia, un archipiélago colombiano donde la magia antigua fluye con cada ola, y las legendarias Islas Esmeralda brillan con un poder místico capaz de alterar destinos.
+
+En este universo lleno de desafíos y peligros, los jugadores asumen el papel de valientes capitanes piratas, cada uno al mando de un barco adornado con símbolos mágicos que les otorgan habilidades únicas. El objetivo es claro: navegar por las traicioneras aguas de Esmeraldia, enfrentarse en batallas épicas contra otros capitanes, y reclamar las preciosas esmeraldas que otorgan dominio absoluto sobre el reino.
 
 Además del juego, estamos construyendo un **Hub para Desarrolladores de Videojuegos** que permitirá a desarrolladores de juegos web2 convertir sus juegos en experiencias web3. Este hub facilitará la creación y gestión de tokens y NFTs cross-chain utilizando Avalanche y Axelar, brindando a los desarrolladores todas las herramientas necesarias para integrar la tecnología blockchain en sus proyectos.
 
@@ -25,6 +27,26 @@ Además del juego, estamos construyendo un **Hub para Desarrolladores de Videoju
 - **Frontend:** React, Unity (WebGL)
 - **Backend:** Node.js, NestJS
 - **Herramientas de Desarrollo:** Hardhat, Ethers.js, Scaffold-ETH 2
+
+
+## Contratos Desplegados
+
+Estos son los contratos desplegados en la red Avalanche Fuji para el proyecto **Sea Of Fortune: Battle For SFB 🏴‍☠**.
+
+- **CrossChainToken**
+  - Dirección: [0x734e16F1D41e0AE36D157BeC571FA67A7d8B84Fd](https://testnet.snowtrace.io/address/0x734e16F1D41e0AE36D157BeC571FA67A7d8B84Fd)
+
+- **CrossChainNFTCollection**
+  - Dirección: [0x099b90ebf2FD7C048a9866E9C91833d03dce6832](https://testnet.snowtrace.io/address/0x099b90ebf2FD7C048a9866E9C91833d03dce6832)
+
+- **SeaFortune**
+  - Dirección: [0xfBF720f071D09CeE955A3CD0FE97f81F9b744526](https://testnet.snowtrace.io/address/0xfBF720f071D09CeE955A3CD0FE97f81F9b744526)
+
+### Cuenta Usada para el Despliegue
+- Dirección: 0xE6F4491CA3670984BD0Add553f296B5960c32374
+
+Puedes verificar estos contratos directamente en el [explorador de bloques de Avalanche Fuji](https://testnet.snowtrace.io/).
+
 
 ## Instalación y Configuración
 
