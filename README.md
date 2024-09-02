@@ -24,7 +24,7 @@ Además del juego, estamos construyendo un **Hub para Desarrolladores de Videoju
 
 - **Blockchain:** Avalanche, Axelar
 - **Lenguajes de Programación:** Solidity, TypeScript
-- **Frontend:** React, Unity (WebGL)
+- **Frontend:** React, Unity
 - **Backend:** Node.js, NestJS
 - **Herramientas de Desarrollo:** Hardhat, Ethers.js, Scaffold-ETH 2
 
@@ -47,6 +47,10 @@ Estos son los contratos desplegados en la red Avalanche Fuji para el proyecto **
 
 Puedes verificar estos contratos directamente en el [explorador de bloques de Avalanche Fuji](https://testnet.snowtrace.io/).
 
+
+## FrontEnd
+
+puedes ver mas del proyecto e interactuar con los contratos en [despliegue](https://gameavaxseaoffortune-williamvp10s-projects.vercel.app/)
 
 ## Instalación y Configuración
 
