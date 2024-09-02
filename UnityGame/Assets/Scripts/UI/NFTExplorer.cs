@@ -12,6 +12,7 @@ public class NFTExplorer : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private GameObject shipStatsPanel;
     [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private TextMeshProUGUI shipName;
 
     private int currentIndex = 0;
     private JArray parsedData;
@@ -50,6 +51,9 @@ public class NFTExplorer : MonoBehaviour
         if (image != null && parsedData.Count > 0)
         {
             JObject objectParsedData = (JObject)parsedData[currentIndex];
+
+            shipName.text = objectParsedData["name"].ToString();
+
             JArray attributes = (JArray)objectParsedData["attributes"];
 
             //Debug.Log("Attributes: " + attributes);

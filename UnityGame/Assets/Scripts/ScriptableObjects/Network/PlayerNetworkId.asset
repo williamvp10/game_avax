@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca5bdb8731c34e41975aa5386bd06ed, type: 3}
   m_Name: PlayerNetworkId
   m_EditorClassIdentifier: 
-  httpUrl: http://localhost:3000/
-  webSocketUrl: ws://localhost:3000/
-  socketId: 3566f2ab-7786-4b7b-b335-f0f0e3a217c6
+  httpUrl: https://gameserver-production-1dd9.up.railway.app/
+  webSocketUrl: wss://gameserver-production-1dd9.up.railway.app/
+  socketId: 
   roomId: 
-  walletAddress: HDSAHUDSAUJDSADSADSADSADASDS
+  walletAddress: 
