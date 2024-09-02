@@ -3,9 +3,8 @@
 import Link from "next/link";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
-import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { PresentationChartBarIcon, TrophyIcon, UserIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-eth";
-
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
@@ -14,53 +13,50 @@ const Home: NextPage = () => {
     <>
       <div className="flex items-center flex-col flex-grow pt-10">
         <div className="px-5">
-          <h1 className="text-center">
-            <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">Scaffold-ETH 2</span>
-          </h1>
-          <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
-            <p className="my-2 font-medium">Connected Address:</p>
+          <h1 className="text-center text-4xl font-bold mb-4">Sea Of Fortune: Battle For SFB 🏴‍☠</h1>
+          <p className="text-center text-lg mb-6">
+            "Sea of Fortune: Battle For SFB" es un emocionante juego de aventuras ambientado en los enigmáticos mares del Atlántico. Únete a la batalla por las esmeraldas y conquista el Reino de Esmeraldia.
+          </p>
+
+          <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row mb-4">
+            <p className="font-medium">Dirección Conectada:</p>
             <Address address={connectedAddress} />
           </div>
-          <p className="text-center text-lg">
-            Get started by editing{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/nextjs/app/page.tsx
-            </code>
-          </p>
-          <p className="text-center text-lg">
-            Edit your smart contract{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              YourContract.sol
-            </code>{" "}
-            in{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/hardhat/contracts
-            </code>
-          </p>
         </div>
 
-        <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <BugAntIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Tinker with your smart contract using the{" "}
-                <Link href="/debug" passHref className="link">
-                  Debug Contracts
-                </Link>{" "}
-                tab.
-              </p>
+        <div className="bg-base-300 w-full px-8 py-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="bg-base-100 p-6 text-center items-center rounded-3xl shadow-lg">
+              <CurrencyDollarIcon className="h-8 w-8 text-secondary mx-auto mb-4" />
+              <h2 className="text-2xl font-bold mb-2">Compra Tokens SFB</h2>
+              <p className="mb-4">Adquiere tokens SFB para participar en el juego y mejorar tus habilidades.</p>
+              <Link href="/mint_token" passHref className="btn btn-primary">
+                Comprar Tokens
+              </Link>
             </div>
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <MagnifyingGlassIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Explore your local transactions with the{" "}
-                <Link href="/blockexplorer" passHref className="link">
-                  Block Explorer
-                </Link>{" "}
-                tab.
-              </p>
+            <div className="bg-base-100 p-6 text-center items-center rounded-3xl shadow-lg">
+              <UserIcon className="h-8 w-8 text-secondary mx-auto mb-4" />
+              <h2 className="text-2xl font-bold mb-2">Únete a la Batalla</h2>
+              <p className="mb-4">Únete a una sala de juego y comienza tu aventura por las esmeraldas.</p>
+              <Link href="/game" passHref className="btn btn-primary">
+                Jugar Ahora
+              </Link>
+            </div>
+            <div className="bg-base-100 p-6 text-center items-center rounded-3xl shadow-lg">
+              <PresentationChartBarIcon className="h-8 w-8 text-secondary mx-auto mb-4" />
+              <h2 className="text-2xl font-bold mb-2">Estadísticas del Juego</h2>
+              <p className="mb-4">Consulta las estadísticas de las salas y los jugadores.</p>
+              <Link href="#" passHref className="btn btn-primary">
+                Ver Estadísticas
+              </Link>
+            </div>
+            <div className="bg-base-100 p-6 text-center items-center rounded-3xl shadow-lg">
+              <TrophyIcon className="h-8 w-8 text-secondary mx-auto mb-4" />
+              <h2 className="text-2xl font-bold mb-2">Historial de Ganadores</h2>
+              <p className="mb-4">Mira quién ha ganado las batallas más recientes y su estrategia.</p>
+              <Link href="#" passHref className="btn btn-primary">
+                Ver Ganadores
+              </Link>
             </div>
           </div>
         </div>

@@ -37,7 +37,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
   // Variables comunes
   const feePercentage = 2;
   const mapOwnerPercentage = 1;
-  const communityPercentage = 4;
+  const communityPercentage = 2;
   const pointsPercentage = 35;
   const winnerPercentage = 60;
   const communityWallet = "0x97CBFB45b75F7bc7505bb642566cC96F50E67ffE";  // Dirección de la wallet de la comunidad
@@ -60,7 +60,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
 
     const nftCollectionDeployment = await deploy("CrossChainNFTCollection", {
       from: deployer,
-      args: ["Sea of Fortune Ship", "SFS", deployer, "https://metadata-uri.com/", gatewayAddress, gasServiceAddress],
+      args: ["Sea of Fortune Ship", "SFS", deployer, "https://ipfs.io/ipfs/QmP4CkvwLGjT8qJqCZzGjkS6bczBfbPLWTXwNsdtbTyCjR/{id}.json", gatewayAddress, gasServiceAddress],
       log: true,
       autoMine: true,
     });
@@ -148,7 +148,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
   if (network.name === "avalanche_fuji") {
     const { gatewayAddress, gasServiceAddress } = networkConfig["avalanche_fuji"];
 
-    const initialSupply = 21000000;  // Suministro inicial
+    const initialSupply = 10;  // Suministro inicial
     const tokenDeployment = await deploy("CrossChainToken", {
       from: deployer,
       args: ["Sea of Fortune Battle", "SFB", initialSupply, deployer, gatewayAddress, gasServiceAddress],

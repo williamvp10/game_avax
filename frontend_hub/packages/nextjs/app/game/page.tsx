@@ -129,20 +129,17 @@ const GamePlay: NextPage = () => {
         <JoinRoomButton isActive={roomData.isActive} handleJoinRoom={handleJoinRoom} />
       </div>
 
-      {roomData.winner && (
-        <>
-          <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 p-5 text-primary-content mt-4">
-            <h2 className="text-2xl font-bold">Ganador</h2>
-            <p className="mt-4">
-              <strong>El ganador es:</strong> {roomData.winner}
-            </p>
-          </div>
-
+      {roomData.winner !=="0x0000000000000000000000000000000000000000" && !roomData.betPaid  && (
+        <div className="flex flex-row max-w-2xl">
           <WithdrawWinningsForm roomId={roomId} />
-        </>
+        </div>
       )}
-
-      <MyGame connectedAddress={connectedAddress} />
+      <br />
+      {/* Unity Game 
+      <div className="">
+        <MyGame connectedAddress={connectedAddress} />
+      </div>
+      */}
     </div>
   );
 };
