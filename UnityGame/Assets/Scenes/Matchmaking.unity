@@ -6544,6 +6544,9 @@ MonoBehaviour:
   serverResponse: {fileID: 1410233230}
   playerNetworkId: {fileID: 11400000, guid: efba2e30134c5b748b4da0a53e85cac2, type: 2}
   playerStats: {fileID: 11400000, guid: 6537f8f9e646eb345908622ae8488187, type: 2}
+  newReadyButtonImg: {fileID: 21300000, guid: c5dd9feee55fef6468d1a64ed2f43830, type: 3}
+  readyButton: {fileID: 1926058528}
+  readyButtonText: {fileID: 1797745767}
 --- !u!4 &1374277817
 Transform:
   m_ObjectHideFlags: 0

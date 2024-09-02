@@ -79,22 +79,22 @@ async function declareWinner(req, res) {
         });
     }
     console.log("Data:", data);
-  try {
-    // Interactuar con el contrato en la red especificada
-    const contractInstance = await SC_interact(data.contractAddress, data.network, "SeaFortune");
+    try {
+        // Interactuar con el contrato en la red especificada
+        const contractInstance = await SC_interact(data.contractAddress, data.network, "SeaFortune");
 
-    // Ejecutar el método declareWinner usando SC_Set_Method_Value
-    const eventArgs = await SC_Capture_Emit(contractInstance, "declareWinner","WinnerDeclared", data.roomId, data.winner);
-    console.log("Event args:", eventArgs);
-    res.status(200).json({ success: true, message: `Winner declared successfully for room ${data.roomId}`, eventArgs });
+        // Ejecutar el método declareWinner usando SC_Set_Method_Value
+        const eventArgs = await SC_Capture_Emit(contractInstance, "declareWinner", "WinnerDeclared", data.roomId, data.winner);
+        console.log("Event args:", eventArgs);
+        res.status(200).json({ success: true, message: `Winner declared successfully for room ${data.roomId}`, eventArgs });
 
-  } catch (error) {
-    console.error("Error declaring winner:", error);
-    return res.status(500).json({
-      success: false,
-      error: error.message || "Internal server error",
-    });
-  }
+    } catch (error) {
+        console.error("Error declaring winner:", error);
+        return res.status(500).json({
+            success: false,
+            error: error.message || "Internal server error",
+        });
+    }
 }
 module.exports = {
     createRoom,

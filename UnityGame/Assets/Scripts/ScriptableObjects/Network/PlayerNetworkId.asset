@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca5bdb8731c34e41975aa5386bd06ed, type: 3}
   m_Name: PlayerNetworkId
   m_EditorClassIdentifier: 
-  httpUrl: http://localhost:3000
+  httpUrl: http://localhost:3000/
   webSocketUrl: ws://localhost:3000/
-  socketId: 44dc2243-e978-4b5c-a4c1-297ed6538dba
-  roomId: room_1724700937232
-  walletAddress: 
+  socketId: 3566f2ab-7786-4b7b-b335-f0f0e3a217c6
+  roomId: 
+  walletAddress: HDSAHUDSAUJDSADSADSADSADASDS

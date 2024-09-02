@@ -5,7 +5,9 @@ using TMPro;
 using UnityEngine.Networking;
 using WebSocketSharp;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using System.Security.Cryptography;
+using UnityEngine.UI;
 
 [Serializable]
 public class Position
@@ -28,20 +30,20 @@ public class ServerMessage
     public GameStartData data;
 }
 
-[System.Serializable]
+[Serializable]
 public class MatchmakingResponse
 {
     public string message;
 }
 
-[System.Serializable]
+[Serializable]
 public class SocketMessage
 {
     public string type;
     public string socketId;
 }
 
-[System.Serializable]
+[Serializable]
 public class PlayerData
 {
     public string id;
@@ -49,32 +51,44 @@ public class PlayerData
     public int level;
     public string socketId;
     public int skinId;
+    public string walletAddress;
 
-    public PlayerData(string id, int cups, int level, string socketId, int skinId)
+    public PlayerData(string id, int cups, int level, string socketId, int skinId, string walletAddress)
     {
         this.id = id;
         this.cups = cups;
         this.level = level;
         this.socketId = socketId;
         this.skinId = skinId;
+        this.walletAddress = walletAddress;
     }
+}
+
+[Serializable]
+public class SetUpGame
+{
+    public string type;
+    public string roomId;
 }
 
 public class StartMatchmaking : MonoBehaviour
 {
-    /*[SerializeField] private TMP_InputField inputID;
-    [SerializeField] private TMP_InputField inputCups;
-    [SerializeField] private TMP_InputField inputLevel;*/
 
     [SerializeField] private TextMeshProUGUI serverResponse;
     [SerializeField] private NetworkId playerNetworkId;
     [SerializeField] private PlayerStats playerStats;
+
+    [SerializeField] private Sprite newReadyButtonImg;
+    [SerializeField] private Button readyButton;
+    [SerializeField] private TextMeshProUGUI readyButtonText;
 
     //[SerializeField] private string matchmakingUrl = "https://localhost:3000/api/matchmaking/join";
 
     private WebSocket webSocket;
     private string roomId;
     private bool startMatch = false;
+
+    private bool sendTransactionNotify = false;
 
     private void Start()
     {
@@ -91,7 +105,16 @@ public class StartMatchmaking : MonoBehaviour
                     playerNetworkId.socketId = message.socketId;
                 else
                 {
+                    //serverResponse.text = "Waiting";
                     ServerMessage serverMessage = JsonUtility.FromJson<ServerMessage>(e.Data);
+                    if(serverMessage.message == "gameStartTransaction")
+                    {
+                        //serverResponse.text = "gameStartTransaction";
+                        JObject parsedData = JObject.Parse(e.Data);
+                        playerNetworkId.roomId = parsedData["data"]["roomId"].ToString();
+                        //SendMessageToReactComponent(parsedData["data"]["web3RoomId"].ToString(), parsedData["data"]["betAmount"].ToString());
+                    }
+
                     if (serverMessage.message == "gameStart")
                     {
                         playerNetworkId.roomId = serverMessage.data.roomId;
@@ -135,13 +158,19 @@ public class StartMatchmaking : MonoBehaviour
     public void SearchMatchmaking()
     {
         //StartCoroutine(SendMatchmakingRequest(inputID.text, int.Parse(inputCups.text), int.Parse(inputLevel.text), playerNetworkId.socketId));
-        StartCoroutine(SendMatchmakingRequest(playerStats.skinId.ToString(), 1, 1, playerNetworkId.socketId, playerStats.skinId));
+        StartCoroutine(SendMatchmakingRequest(playerStats.skinId.ToString(), 1, 1, playerNetworkId.socketId, playerStats.skinId, playerNetworkId.walletAddress));
     }
 
-    private IEnumerator SendMatchmakingRequest(string playerId, int cups, int level, string socketId, int skinId)
+    private IEnumerator SendMatchmakingRequest(string playerId, int cups, int level, string socketId, int skinId, string walletAddress)
     {
-        string json = JsonUtility.ToJson(new PlayerData(playerId, cups, level, socketId, skinId));
-        string myUrl = playerNetworkId.httpUrl + "/api/matchmaking/join";
+        readyButton.image.sprite = newReadyButtonImg;
+        readyButton.onClick.RemoveAllListeners();
+        readyButton.onClick.AddListener(SetUpMyGame);
+        readyButtonText.text = "I Already payed my transaction";
+
+        string json = JsonUtility.ToJson(new PlayerData(playerId, cups, level, socketId, skinId, walletAddress));
+        string myUrl = playerNetworkId.httpUrl + "api/matchmaking/join";
+
 
         using (UnityWebRequest request = new UnityWebRequest(myUrl, "POST"))
         {
@@ -149,19 +178,31 @@ public class StartMatchmaking : MonoBehaviour
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Access-Control-Allow-Origin", "*");
 
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
                 MatchmakingResponse matchmakingResponse = JsonUtility.FromJson<MatchmakingResponse>(request.downloadHandler.text);
-                serverResponse.text = matchmakingResponse.message;
+                //serverResponse.text = matchmakingResponse.message;
             }
             else
             {
                 Debug.LogError("Error en matchmaking: " + request.error);
             }
         }
+    }
+
+    private void SetUpMyGame()
+    {
+        SetUpGame format = new SetUpGame
+        {
+            type = "readyToSetUp",
+            roomId = playerNetworkId.roomId,
+        };
+        string jsonData = JsonUtility.ToJson(format);
+        webSocket.Send(jsonData);
     }
 
 }

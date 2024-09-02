@@ -5,9 +5,9 @@ import Player from "../models/matchmakingModel.js";
 const router = Router();
 
 router.post('/join', (req, res) => {
-    const { id, cups, level, socketId, skinId } = req.body; 
+    const { id, cups, level, socketId, skinId, walletAddress } = req.body; 
     const player = new Player(id, cups, level);
-    const match = addPlayerToQueue(player, socketId, skinId);
+    const match = addPlayerToQueue(player, socketId, skinId, walletAddress);
 
     if (match) {
         res.status(200).json({ match });
