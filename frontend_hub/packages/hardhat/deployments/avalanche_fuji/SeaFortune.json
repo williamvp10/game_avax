@@ -1,0 +1,935 @@
+{
+  "address": "0xfBF720f071D09CeE955A3CD0FE97f81F9b744526",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_communityWallet",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_feePercentage",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_mapOwnerPercentage",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_communityPercentage",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_pointsPercentage",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_winnerPercentage",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "gateway",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "gasServiceAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotApprovedByGateway",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "winner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "destinationChain",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "destinationAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "CrossChainWithdrawalInitiated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        }
+      ],
+      "name": "PlayerJoined",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "betAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "RoomCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "winner",
+          "type": "address"
+        }
+      ],
+      "name": "WinnerDeclared",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "winner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amountWon",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "pointsAmount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "communityFee",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "mapOwnerFee",
+          "type": "uint256"
+        }
+      ],
+      "name": "WinningsWithdrawn",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_newWallet",
+          "type": "address"
+        }
+      ],
+      "name": "changeCommunityWallet",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "communityPercentage",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "communityWallet",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_roomId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_winner",
+          "type": "address"
+        }
+      ],
+      "name": "declareWinner",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceChain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes",
+          "name": "payload",
+          "type": "bytes"
+        }
+      ],
+      "name": "execute",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commandId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceChain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "sourceAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes",
+          "name": "payload",
+          "type": "bytes"
+        },
+        {
+          "internalType": "string",
+          "name": "tokenSymbol",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "executeWithToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "feePercentage",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "gasService",
+      "outputs": [
+        {
+          "internalType": "contract IAxelarGasService",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "gateway",
+      "outputs": [
+        {
+          "internalType": "contract IAxelarGateway",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_roomId",
+          "type": "uint256"
+        }
+      ],
+      "name": "joinRoom",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "mapOwnerPercentage",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pointsPercentage",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_betAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_mapOwner",
+          "type": "address"
+        }
+      ],
+      "name": "registerRoom",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_roomId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_player",
+          "type": "address"
+        }
+      ],
+      "name": "registerTowerDestruction",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "roomCounter",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "rooms",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "playerAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "points",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "towersLeft",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct SeaFortune.Player",
+          "name": "player1",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "playerAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "points",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "towersLeft",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct SeaFortune.Player",
+          "name": "player2",
+          "type": "tuple"
+        },
+        {
+          "internalType": "uint256",
+          "name": "betAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isActive",
+          "type": "bool"
+        },
+        {
+          "internalType": "address",
+          "name": "winner",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "betPaid",
+          "type": "bool"
+        },
+        {
+          "internalType": "address",
+          "name": "mapOwner",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "chain",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "remoteAddress",
+          "type": "string"
+        }
+      ],
+      "name": "setTrustedRemote",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "token",
+      "outputs": [
+        {
+          "internalType": "contract IERC20",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "trustedRemotes",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "winnerPercentage",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdrawOwnerTokens",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_roomId",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdrawWinnings",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_roomId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "destinationChain",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "destinationAddress",
+          "type": "address"
+        }
+      ],
+      "name": "withdrawWinningsCrossChain",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x89dded74f5c9bd431b9602cd2b7ebf4d883e3b82a5d8efec34adb17d8068bc65",
+  "receipt": {
+    "to": null,
+    "from": "0xE6F4491CA3670984BD0Add553f296B5960c32374",
+    "contractAddress": "0xfBF720f071D09CeE955A3CD0FE97f81F9b744526",
+    "transactionIndex": 1,
+    "gasUsed": "2354715",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xcb1cd3ebdb383af0657460cb6081cb2872932dc1330b86a56b33b36750d68ad4",
+    "transactionHash": "0x89dded74f5c9bd431b9602cd2b7ebf4d883e3b82a5d8efec34adb17d8068bc65",
+    "logs": [],
+    "blockNumber": 35679640,
+    "cumulativeGasUsed": "2483861",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x734e16F1D41e0AE36D157BeC571FA67A7d8B84Fd",
+    "0x97CBFB45b75F7bc7505bb642566cC96F50E67ffE",
+    2,
+    1,
+    2,
+    35,
+    60,
+    "0xC249632c2D40b9001FE907806902f63038B737Ab",
+    "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "a045d2e0f732e11ad329d0ce4dd12480",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_communityWallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_feePercentage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_mapOwnerPercentage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_communityPercentage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_pointsPercentage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_winnerPercentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"gateway\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"gasServiceAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"InvalidAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotApprovedByGateway\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"destinationChain\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"destinationAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"CrossChainWithdrawalInitiated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"player\",\"type\":\"address\"}],\"name\":\"PlayerJoined\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"betAmount\",\"type\":\"uint256\"}],\"name\":\"RoomCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"}],\"name\":\"WinnerDeclared\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountWon\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"pointsAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"communityFee\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mapOwnerFee\",\"type\":\"uint256\"}],\"name\":\"WinningsWithdrawn\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_newWallet\",\"type\":\"address\"}],\"name\":\"changeCommunityWallet\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"communityPercentage\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"communityWallet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_roomId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_winner\",\"type\":\"address\"}],\"name\":\"declareWinner\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"sourceChain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"sourceAddress\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"payload\",\"type\":\"bytes\"}],\"name\":\"execute\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"commandId\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"sourceChain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"sourceAddress\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"payload\",\"type\":\"bytes\"},{\"internalType\":\"string\",\"name\":\"tokenSymbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"executeWithToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feePercentage\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"gasService\",\"outputs\":[{\"internalType\":\"contract IAxelarGasService\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"gateway\",\"outputs\":[{\"internalType\":\"contract IAxelarGateway\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_roomId\",\"type\":\"uint256\"}],\"name\":\"joinRoom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"mapOwnerPercentage\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pointsPercentage\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_betAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_mapOwner\",\"type\":\"address\"}],\"name\":\"registerRoom\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_roomId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_player\",\"type\":\"address\"}],\"name\":\"registerTowerDestruction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"roomCounter\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"rooms\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"playerAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"points\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"towersLeft\",\"type\":\"uint256\"}],\"internalType\":\"struct SeaFortune.Player\",\"name\":\"player1\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"playerAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"points\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"towersLeft\",\"type\":\"uint256\"}],\"internalType\":\"struct SeaFortune.Player\",\"name\":\"player2\",\"type\":\"tuple\"},{\"internalType\":\"uint256\",\"name\":\"betAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isActive\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"betPaid\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"mapOwner\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"chain\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"remoteAddress\",\"type\":\"string\"}],\"name\":\"setTrustedRemote\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"token\",\"outputs\":[{\"internalType\":\"contract IERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"trustedRemotes\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"winnerPercentage\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdrawOwnerTokens\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_roomId\",\"type\":\"uint256\"}],\"name\":\"withdrawWinnings\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_roomId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"destinationChain\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"destinationAddress\",\"type\":\"address\"}],\"name\":\"withdrawWinningsCrossChain\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/SeaFortune.sol\":\"SeaFortune\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@axelar-network/axelar-gmp-sdk-solidity/contracts/executable/AxelarExecutable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { IAxelarGateway } from '../interfaces/IAxelarGateway.sol';\\nimport { IAxelarExecutable } from '../interfaces/IAxelarExecutable.sol';\\n\\ncontract AxelarExecutable is IAxelarExecutable {\\n    IAxelarGateway public immutable gateway;\\n\\n    constructor(address gateway_) {\\n        if (gateway_ == address(0)) revert InvalidAddress();\\n\\n        gateway = IAxelarGateway(gateway_);\\n    }\\n\\n    function execute(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload\\n    ) external {\\n        bytes32 payloadHash = keccak256(payload);\\n\\n        if (!gateway.validateContractCall(commandId, sourceChain, sourceAddress, payloadHash))\\n            revert NotApprovedByGateway();\\n\\n        _execute(sourceChain, sourceAddress, payload);\\n    }\\n\\n    function executeWithToken(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload,\\n        string calldata tokenSymbol,\\n        uint256 amount\\n    ) external {\\n        bytes32 payloadHash = keccak256(payload);\\n\\n        if (\\n            !gateway.validateContractCallAndMint(\\n                commandId,\\n                sourceChain,\\n                sourceAddress,\\n                payloadHash,\\n                tokenSymbol,\\n                amount\\n            )\\n        ) revert NotApprovedByGateway();\\n\\n        _executeWithToken(sourceChain, sourceAddress, payload, tokenSymbol, amount);\\n    }\\n\\n    function _execute(\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload\\n    ) internal virtual {}\\n\\n    function _executeWithToken(\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload,\\n        string calldata tokenSymbol,\\n        uint256 amount\\n    ) internal virtual {}\\n}\\n\",\"keccak256\":\"0x2a88d046f9cdc664afc7b788d6c5b534d361b46fb45ab7abf721a58dd813359b\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarExecutable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { IAxelarGateway } from './IAxelarGateway.sol';\\n\\ninterface IAxelarExecutable {\\n    error InvalidAddress();\\n    error NotApprovedByGateway();\\n\\n    function gateway() external view returns (IAxelarGateway);\\n\\n    function execute(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload\\n    ) external;\\n\\n    function executeWithToken(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes calldata payload,\\n        string calldata tokenSymbol,\\n        uint256 amount\\n    ) external;\\n}\\n\",\"keccak256\":\"0x4279ef3b4fe5e7082f39c665d4aeddc6d84fcc6fadaacd1d8ae604ba6146b8e6\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGasService.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { GasInfo } from '../types/GasEstimationTypes.sol';\\nimport { IInterchainGasEstimation } from './IInterchainGasEstimation.sol';\\nimport { IUpgradable } from './IUpgradable.sol';\\n\\n/**\\n * @title IAxelarGasService Interface\\n * @notice This is an interface for the AxelarGasService contract which manages gas payments\\n * and refunds for cross-chain communication on the Axelar network.\\n * @dev This interface inherits IUpgradable\\n */\\ninterface IAxelarGasService is IInterchainGasEstimation, IUpgradable {\\n    error InvalidAddress();\\n    error NotCollector();\\n    error InvalidAmounts();\\n    error InvalidGasUpdates();\\n    error InvalidParams();\\n    error InsufficientGasPayment(uint256 required, uint256 provided);\\n\\n    event GasPaidForContractCall(\\n        address indexed sourceAddress,\\n        string destinationChain,\\n        string destinationAddress,\\n        bytes32 indexed payloadHash,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    );\\n\\n    event GasPaidForContractCallWithToken(\\n        address indexed sourceAddress,\\n        string destinationChain,\\n        string destinationAddress,\\n        bytes32 indexed payloadHash,\\n        string symbol,\\n        uint256 amount,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    );\\n\\n    event NativeGasPaidForContractCall(\\n        address indexed sourceAddress,\\n        string destinationChain,\\n        string destinationAddress,\\n        bytes32 indexed payloadHash,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    );\\n\\n    event NativeGasPaidForContractCallWithToken(\\n        address indexed sourceAddress,\\n        string destinationChain,\\n        string destinationAddress,\\n        bytes32 indexed payloadHash,\\n        string symbol,\\n        uint256 amount,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    );\\n\\n    event GasPaidForExpressCall(\\n        address indexed sourceAddress,\\n        string destinationChain,\\n        string destinationAddress,\\n        bytes32 indexed payloadHash,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    );\\n\\n    event GasPaidForExpressCallWithToken(\\n        address indexed sourceAddress,\\n        string destinationChain,\\n        string destinationAddress,\\n        bytes32 indexed payloadHash,\\n        string symbol,\\n        uint256 amount,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    );\\n\\n    event NativeGasPaidForExpressCall(\\n        address indexed sourceAddress,\\n        string destinationChain,\\n        string destinationAddress,\\n        bytes32 indexed payloadHash,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    );\\n\\n    event NativeGasPaidForExpressCallWithToken(\\n        address indexed sourceAddress,\\n        string destinationChain,\\n        string destinationAddress,\\n        bytes32 indexed payloadHash,\\n        string symbol,\\n        uint256 amount,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    );\\n\\n    event GasAdded(\\n        bytes32 indexed txHash,\\n        uint256 indexed logIndex,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    );\\n\\n    event NativeGasAdded(bytes32 indexed txHash, uint256 indexed logIndex, uint256 gasFeeAmount, address refundAddress);\\n\\n    event ExpressGasAdded(\\n        bytes32 indexed txHash,\\n        uint256 indexed logIndex,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    );\\n\\n    event NativeExpressGasAdded(\\n        bytes32 indexed txHash,\\n        uint256 indexed logIndex,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    );\\n\\n    event Refunded(\\n        bytes32 indexed txHash,\\n        uint256 indexed logIndex,\\n        address payable receiver,\\n        address token,\\n        uint256 amount\\n    );\\n\\n    /**\\n     * @notice Pay for gas for any type of contract execution on a destination chain.\\n     * @dev This function is called on the source chain before calling the gateway to execute a remote contract.\\n     * @dev If estimateOnChain is true, the function will estimate the gas cost and revert if the payment is insufficient.\\n     * @param sender The address making the payment\\n     * @param destinationChain The target chain where the contract call will be made\\n     * @param destinationAddress The target address on the destination chain\\n     * @param payload Data payload for the contract call\\n     * @param executionGasLimit The gas limit for the contract call\\n     * @param estimateOnChain Flag to enable on-chain gas estimation\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     * @param params Additional parameters for gas payment. This can be left empty for normal contract call payments.\\n     */\\n    function payGas(\\n        address sender,\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        bytes calldata payload,\\n        uint256 executionGasLimit,\\n        bool estimateOnChain,\\n        address refundAddress,\\n        bytes calldata params\\n    ) external payable;\\n\\n    /**\\n     * @notice Pay for gas using ERC20 tokens for a contract call on a destination chain.\\n     * @dev This function is called on the source chain before calling the gateway to execute a remote contract.\\n     * @param sender The address making the payment\\n     * @param destinationChain The target chain where the contract call will be made\\n     * @param destinationAddress The target address on the destination chain\\n     * @param payload Data payload for the contract call\\n     * @param gasToken The address of the ERC20 token used to pay for gas\\n     * @param gasFeeAmount The amount of tokens to pay for gas\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function payGasForContractCall(\\n        address sender,\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        bytes calldata payload,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    ) external;\\n\\n    /**\\n     * @notice Pay for gas using ERC20 tokens for a contract call with tokens on a destination chain.\\n     * @dev This function is called on the source chain before calling the gateway to execute a remote contract.\\n     * @param sender The address making the payment\\n     * @param destinationChain The target chain where the contract call with tokens will be made\\n     * @param destinationAddress The target address on the destination chain\\n     * @param payload Data payload for the contract call with tokens\\n     * @param symbol The symbol of the token to be sent with the call\\n     * @param amount The amount of tokens to be sent with the call\\n     * @param gasToken The address of the ERC20 token used to pay for gas\\n     * @param gasFeeAmount The amount of tokens to pay for gas\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function payGasForContractCallWithToken(\\n        address sender,\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        bytes calldata payload,\\n        string calldata symbol,\\n        uint256 amount,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    ) external;\\n\\n    /**\\n     * @notice Pay for gas using native currency for a contract call on a destination chain.\\n     * @dev This function is called on the source chain before calling the gateway to execute a remote contract.\\n     * @param sender The address making the payment\\n     * @param destinationChain The target chain where the contract call will be made\\n     * @param destinationAddress The target address on the destination chain\\n     * @param payload Data payload for the contract call\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function payNativeGasForContractCall(\\n        address sender,\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        bytes calldata payload,\\n        address refundAddress\\n    ) external payable;\\n\\n    /**\\n     * @notice Pay for gas using native currency for a contract call with tokens on a destination chain.\\n     * @dev This function is called on the source chain before calling the gateway to execute a remote contract.\\n     * @param sender The address making the payment\\n     * @param destinationChain The target chain where the contract call with tokens will be made\\n     * @param destinationAddress The target address on the destination chain\\n     * @param payload Data payload for the contract call with tokens\\n     * @param symbol The symbol of the token to be sent with the call\\n     * @param amount The amount of tokens to be sent with the call\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function payNativeGasForContractCallWithToken(\\n        address sender,\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        bytes calldata payload,\\n        string calldata symbol,\\n        uint256 amount,\\n        address refundAddress\\n    ) external payable;\\n\\n    /**\\n     * @notice Pay for gas using ERC20 tokens for an express contract call on a destination chain.\\n     * @dev This function is called on the source chain before calling the gateway to express execute a remote contract.\\n     * @param sender The address making the payment\\n     * @param destinationChain The target chain where the contract call will be made\\n     * @param destinationAddress The target address on the destination chain\\n     * @param payload Data payload for the contract call\\n     * @param gasToken The address of the ERC20 token used to pay for gas\\n     * @param gasFeeAmount The amount of tokens to pay for gas\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function payGasForExpressCall(\\n        address sender,\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        bytes calldata payload,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    ) external;\\n\\n    /**\\n     * @notice Pay for gas using ERC20 tokens for an express contract call with tokens on a destination chain.\\n     * @dev This function is called on the source chain before calling the gateway to express execute a remote contract.\\n     * @param sender The address making the payment\\n     * @param destinationChain The target chain where the contract call with tokens will be made\\n     * @param destinationAddress The target address on the destination chain\\n     * @param payload Data payload for the contract call with tokens\\n     * @param symbol The symbol of the token to be sent with the call\\n     * @param amount The amount of tokens to be sent with the call\\n     * @param gasToken The address of the ERC20 token used to pay for gas\\n     * @param gasFeeAmount The amount of tokens to pay for gas\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function payGasForExpressCallWithToken(\\n        address sender,\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        bytes calldata payload,\\n        string calldata symbol,\\n        uint256 amount,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    ) external;\\n\\n    /**\\n     * @notice Pay for gas using native currency for an express contract call on a destination chain.\\n     * @dev This function is called on the source chain before calling the gateway to execute a remote contract.\\n     * @param sender The address making the payment\\n     * @param destinationChain The target chain where the contract call will be made\\n     * @param destinationAddress The target address on the destination chain\\n     * @param payload Data payload for the contract call\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function payNativeGasForExpressCall(\\n        address sender,\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        bytes calldata payload,\\n        address refundAddress\\n    ) external payable;\\n\\n    /**\\n     * @notice Pay for gas using native currency for an express contract call with tokens on a destination chain.\\n     * @dev This function is called on the source chain before calling the gateway to execute a remote contract.\\n     * @param sender The address making the payment\\n     * @param destinationChain The target chain where the contract call with tokens will be made\\n     * @param destinationAddress The target address on the destination chain\\n     * @param payload Data payload for the contract call with tokens\\n     * @param symbol The symbol of the token to be sent with the call\\n     * @param amount The amount of tokens to be sent with the call\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function payNativeGasForExpressCallWithToken(\\n        address sender,\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        bytes calldata payload,\\n        string calldata symbol,\\n        uint256 amount,\\n        address refundAddress\\n    ) external payable;\\n\\n    /**\\n     * @notice Add additional gas payment using ERC20 tokens after initiating a cross-chain call.\\n     * @dev This function can be called on the source chain after calling the gateway to execute a remote contract.\\n     * @param txHash The transaction hash of the cross-chain call\\n     * @param logIndex The log index for the cross-chain call\\n     * @param gasToken The ERC20 token address used to add gas\\n     * @param gasFeeAmount The amount of tokens to add as gas\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function addGas(\\n        bytes32 txHash,\\n        uint256 logIndex,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    ) external;\\n\\n    /**\\n     * @notice Add additional gas payment using native currency after initiating a cross-chain call.\\n     * @dev This function can be called on the source chain after calling the gateway to execute a remote contract.\\n     * @param txHash The transaction hash of the cross-chain call\\n     * @param logIndex The log index for the cross-chain call\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function addNativeGas(\\n        bytes32 txHash,\\n        uint256 logIndex,\\n        address refundAddress\\n    ) external payable;\\n\\n    /**\\n     * @notice Add additional gas payment using ERC20 tokens after initiating an express cross-chain call.\\n     * @dev This function can be called on the source chain after calling the gateway to express execute a remote contract.\\n     * @param txHash The transaction hash of the cross-chain call\\n     * @param logIndex The log index for the cross-chain call\\n     * @param gasToken The ERC20 token address used to add gas\\n     * @param gasFeeAmount The amount of tokens to add as gas\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function addExpressGas(\\n        bytes32 txHash,\\n        uint256 logIndex,\\n        address gasToken,\\n        uint256 gasFeeAmount,\\n        address refundAddress\\n    ) external;\\n\\n    /**\\n     * @notice Add additional gas payment using native currency after initiating an express cross-chain call.\\n     * @dev This function can be called on the source chain after calling the gateway to express execute a remote contract.\\n     * @param txHash The transaction hash of the cross-chain call\\n     * @param logIndex The log index for the cross-chain call\\n     * @param refundAddress The address where refunds, if any, should be sent\\n     */\\n    function addNativeExpressGas(\\n        bytes32 txHash,\\n        uint256 logIndex,\\n        address refundAddress\\n    ) external payable;\\n\\n    /**\\n     * @notice Updates the gas price for a specific chain.\\n     * @dev This function is called by the gas oracle to update the gas prices for a specific chains.\\n     * @param chains Array of chain names\\n     * @param gasUpdates Array of gas updates\\n     */\\n    function updateGasInfo(string[] calldata chains, GasInfo[] calldata gasUpdates) external;\\n\\n    /**\\n     * @notice Allows the gasCollector to collect accumulated fees from the contract.\\n     * @dev Use address(0) as the token address for native currency.\\n     * @param receiver The address to receive the collected fees\\n     * @param tokens Array of token addresses to be collected\\n     * @param amounts Array of amounts to be collected for each respective token address\\n     */\\n    function collectFees(\\n        address payable receiver,\\n        address[] calldata tokens,\\n        uint256[] calldata amounts\\n    ) external;\\n\\n    /**\\n     * @notice Refunds gas payment to the receiver in relation to a specific cross-chain transaction.\\n     * @dev Only callable by the gasCollector.\\n     * @dev Use address(0) as the token address to refund native currency.\\n     * @param txHash The transaction hash of the cross-chain call\\n     * @param logIndex The log index for the cross-chain call\\n     * @param receiver The address to receive the refund\\n     * @param token The token address to be refunded\\n     * @param amount The amount to refund\\n     */\\n    function refund(\\n        bytes32 txHash,\\n        uint256 logIndex,\\n        address payable receiver,\\n        address token,\\n        uint256 amount\\n    ) external;\\n\\n    /**\\n     * @notice Returns the address of the designated gas collector.\\n     * @return address of the gas collector\\n     */\\n    function gasCollector() external returns (address);\\n}\\n\",\"keccak256\":\"0x7ad77d3af41f342e9032889a7b5aa224ab0c6dfaf9ce9350fe403d4a596c5eae\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGateway.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { IGovernable } from './IGovernable.sol';\\nimport { IImplementation } from './IImplementation.sol';\\n\\ninterface IAxelarGateway is IImplementation, IGovernable {\\n    /**********\\\\\\n    |* Errors *|\\n    \\\\**********/\\n\\n    error NotSelf();\\n    error InvalidCodeHash();\\n    error SetupFailed();\\n    error InvalidAuthModule();\\n    error InvalidTokenDeployer();\\n    error InvalidAmount();\\n    error InvalidChainId();\\n    error InvalidCommands();\\n    error TokenDoesNotExist(string symbol);\\n    error TokenAlreadyExists(string symbol);\\n    error TokenDeployFailed(string symbol);\\n    error TokenContractDoesNotExist(address token);\\n    error BurnFailed(string symbol);\\n    error MintFailed(string symbol);\\n    error InvalidSetMintLimitsParams();\\n    error ExceedMintLimit(string symbol);\\n\\n    /**********\\\\\\n    |* Events *|\\n    \\\\**********/\\n\\n    event TokenSent(\\n        address indexed sender,\\n        string destinationChain,\\n        string destinationAddress,\\n        string symbol,\\n        uint256 amount\\n    );\\n\\n    event ContractCall(\\n        address indexed sender,\\n        string destinationChain,\\n        string destinationContractAddress,\\n        bytes32 indexed payloadHash,\\n        bytes payload\\n    );\\n\\n    event ContractCallWithToken(\\n        address indexed sender,\\n        string destinationChain,\\n        string destinationContractAddress,\\n        bytes32 indexed payloadHash,\\n        bytes payload,\\n        string symbol,\\n        uint256 amount\\n    );\\n\\n    event Executed(bytes32 indexed commandId);\\n\\n    event TokenDeployed(string symbol, address tokenAddresses);\\n\\n    event ContractCallApproved(\\n        bytes32 indexed commandId,\\n        string sourceChain,\\n        string sourceAddress,\\n        address indexed contractAddress,\\n        bytes32 indexed payloadHash,\\n        bytes32 sourceTxHash,\\n        uint256 sourceEventIndex\\n    );\\n\\n    event ContractCallApprovedWithMint(\\n        bytes32 indexed commandId,\\n        string sourceChain,\\n        string sourceAddress,\\n        address indexed contractAddress,\\n        bytes32 indexed payloadHash,\\n        string symbol,\\n        uint256 amount,\\n        bytes32 sourceTxHash,\\n        uint256 sourceEventIndex\\n    );\\n\\n    event ContractCallExecuted(bytes32 indexed commandId);\\n\\n    event TokenMintLimitUpdated(string symbol, uint256 limit);\\n\\n    event OperatorshipTransferred(bytes newOperatorsData);\\n\\n    event Upgraded(address indexed implementation);\\n\\n    /********************\\\\\\n    |* Public Functions *|\\n    \\\\********************/\\n\\n    function sendToken(\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external;\\n\\n    function callContract(\\n        string calldata destinationChain,\\n        string calldata contractAddress,\\n        bytes calldata payload\\n    ) external;\\n\\n    function callContractWithToken(\\n        string calldata destinationChain,\\n        string calldata contractAddress,\\n        bytes calldata payload,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external;\\n\\n    function isContractCallApproved(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        address contractAddress,\\n        bytes32 payloadHash\\n    ) external view returns (bool);\\n\\n    function isContractCallAndMintApproved(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        address contractAddress,\\n        bytes32 payloadHash,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external view returns (bool);\\n\\n    function validateContractCall(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes32 payloadHash\\n    ) external returns (bool);\\n\\n    function validateContractCallAndMint(\\n        bytes32 commandId,\\n        string calldata sourceChain,\\n        string calldata sourceAddress,\\n        bytes32 payloadHash,\\n        string calldata symbol,\\n        uint256 amount\\n    ) external returns (bool);\\n\\n    /***********\\\\\\n    |* Getters *|\\n    \\\\***********/\\n\\n    function authModule() external view returns (address);\\n\\n    function tokenDeployer() external view returns (address);\\n\\n    function tokenMintLimit(string memory symbol) external view returns (uint256);\\n\\n    function tokenMintAmount(string memory symbol) external view returns (uint256);\\n\\n    function allTokensFrozen() external view returns (bool);\\n\\n    function implementation() external view returns (address);\\n\\n    function tokenAddresses(string memory symbol) external view returns (address);\\n\\n    function tokenFrozen(string memory symbol) external view returns (bool);\\n\\n    function isCommandExecuted(bytes32 commandId) external view returns (bool);\\n\\n    /************************\\\\\\n    |* Governance Functions *|\\n    \\\\************************/\\n\\n    function setTokenMintLimits(string[] calldata symbols, uint256[] calldata limits) external;\\n\\n    function upgrade(\\n        address newImplementation,\\n        bytes32 newImplementationCodeHash,\\n        bytes calldata setupParams\\n    ) external;\\n\\n    /**********************\\\\\\n    |* External Functions *|\\n    \\\\**********************/\\n\\n    function execute(bytes calldata input) external;\\n}\\n\",\"keccak256\":\"0x98a66ec4f5c9e1e444ed39be682195834417cf2cd160db0c56f60e225c826be4\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IContractIdentifier.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n// General interface for upgradable contracts\\ninterface IContractIdentifier {\\n    /**\\n     * @notice Returns the contract ID. It can be used as a check during upgrades.\\n     * @dev Meant to be overridden in derived contracts.\\n     * @return bytes32 The contract ID\\n     */\\n    function contractId() external pure returns (bytes32);\\n}\\n\",\"keccak256\":\"0x21a94655f7f1ed3d7188bd38ce6187892c615b80f9a74e123cbc38113d855a35\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IGovernable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @title IGovernable Interface\\n * @notice This is an interface used by the AxelarGateway contract to manage governance and mint limiter roles.\\n */\\ninterface IGovernable {\\n    error NotGovernance();\\n    error NotMintLimiter();\\n    error InvalidGovernance();\\n    error InvalidMintLimiter();\\n\\n    event GovernanceTransferred(address indexed previousGovernance, address indexed newGovernance);\\n    event MintLimiterTransferred(address indexed previousGovernance, address indexed newGovernance);\\n\\n    /**\\n     * @notice Returns the governance address.\\n     * @return address of the governance\\n     */\\n    function governance() external view returns (address);\\n\\n    /**\\n     * @notice Returns the mint limiter address.\\n     * @return address of the mint limiter\\n     */\\n    function mintLimiter() external view returns (address);\\n\\n    /**\\n     * @notice Transfer the governance role to another address.\\n     * @param newGovernance The new governance address\\n     */\\n    function transferGovernance(address newGovernance) external;\\n\\n    /**\\n     * @notice Transfer the mint limiter role to another address.\\n     * @param newGovernance The new mint limiter address\\n     */\\n    function transferMintLimiter(address newGovernance) external;\\n}\\n\",\"keccak256\":\"0x686c534975bfc4e00f89be5e4a779a41a63f7c5fc204429c839bcdbf09584fd0\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IImplementation.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { IContractIdentifier } from './IContractIdentifier.sol';\\n\\ninterface IImplementation is IContractIdentifier {\\n    error NotProxy();\\n\\n    function setup(bytes calldata data) external;\\n}\\n\",\"keccak256\":\"0xa7f275514d44bec3ab8ab8c768736329174d7cc6c5cd329c3509a66bce9cd468\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IInterchainGasEstimation.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { GasEstimationType, GasInfo } from '../types/GasEstimationTypes.sol';\\n\\n/**\\n * @title IInterchainGasEstimation Interface\\n * @notice This is an interface for the InterchainGasEstimation contract\\n * which allows for estimating gas fees for cross-chain communication on the Axelar network.\\n */\\ninterface IInterchainGasEstimation {\\n    error UnsupportedEstimationType(GasEstimationType gasEstimationType);\\n\\n    /**\\n     * @notice Event emitted when the gas price for a specific chain is updated.\\n     * @param chain The name of the chain\\n     * @param info The gas info for the chain\\n     */\\n    event GasInfoUpdated(string chain, GasInfo info);\\n\\n    /**\\n     * @notice Returns the gas price for a specific chain.\\n     * @param chain The name of the chain\\n     * @return gasInfo The gas info for the chain\\n     */\\n    function getGasInfo(string calldata chain) external view returns (GasInfo memory);\\n\\n    /**\\n     * @notice Estimates the gas fee for a cross-chain contract call.\\n     * @param destinationChain Axelar registered name of the destination chain\\n     * @param destinationAddress Destination contract address being called\\n     * @param executionGasLimit The gas limit to be used for the destination contract execution,\\n     *        e.g. pass in 200k if your app consumes needs upto 200k for this contract call\\n     * @param params Additional parameters for the gas estimation\\n     * @return gasEstimate The cross-chain gas estimate, in terms of source chain's native gas token that should be forwarded to the gas service.\\n     */\\n    function estimateGasFee(\\n        string calldata destinationChain,\\n        string calldata destinationAddress,\\n        bytes calldata payload,\\n        uint256 executionGasLimit,\\n        bytes calldata params\\n    ) external view returns (uint256 gasEstimate);\\n}\\n\",\"keccak256\":\"0x5463c0d3632e53d3906796d4283a627bd7ebc63d0092685715d98340db9516ff\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IOwnable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @title IOwnable Interface\\n * @notice IOwnable is an interface that abstracts the implementation of a\\n * contract with ownership control features. It's commonly used in upgradable\\n * contracts and includes the functionality to get current owner, transfer\\n * ownership, and propose and accept ownership.\\n */\\ninterface IOwnable {\\n    error NotOwner();\\n    error InvalidOwner();\\n    error InvalidOwnerAddress();\\n\\n    event OwnershipTransferStarted(address indexed newOwner);\\n    event OwnershipTransferred(address indexed newOwner);\\n\\n    /**\\n     * @notice Returns the current owner of the contract.\\n     * @return address The address of the current owner\\n     */\\n    function owner() external view returns (address);\\n\\n    /**\\n     * @notice Returns the address of the pending owner of the contract.\\n     * @return address The address of the pending owner\\n     */\\n    function pendingOwner() external view returns (address);\\n\\n    /**\\n     * @notice Transfers ownership of the contract to a new address\\n     * @param newOwner The address to transfer ownership to\\n     */\\n    function transferOwnership(address newOwner) external;\\n\\n    /**\\n     * @notice Proposes to transfer the contract's ownership to a new address.\\n     * The new owner needs to accept the ownership explicitly.\\n     * @param newOwner The address to transfer ownership to\\n     */\\n    function proposeOwnership(address newOwner) external;\\n\\n    /**\\n     * @notice Transfers ownership to the pending owner.\\n     * @dev Can only be called by the pending owner\\n     */\\n    function acceptOwnership() external;\\n}\\n\",\"keccak256\":\"0x5cb5691c9293e3011e1b133485411e8933ca1e110f2436a663df12991d134bf7\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IUpgradable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { IOwnable } from './IOwnable.sol';\\nimport { IImplementation } from './IImplementation.sol';\\n\\n// General interface for upgradable contracts\\ninterface IUpgradable is IOwnable, IImplementation {\\n    error InvalidCodeHash();\\n    error InvalidImplementation();\\n    error SetupFailed();\\n\\n    event Upgraded(address indexed newImplementation);\\n\\n    function implementation() external view returns (address);\\n\\n    function upgrade(\\n        address newImplementation,\\n        bytes32 newImplementationCodeHash,\\n        bytes calldata params\\n    ) external;\\n}\\n\",\"keccak256\":\"0x4e1f84c9711c3c15c77aee5fce8de99fcb49a902c7e6ff24626c924a60b8c22d\",\"license\":\"MIT\"},\"@axelar-network/axelar-gmp-sdk-solidity/contracts/types/GasEstimationTypes.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @title GasEstimationType\\n * @notice This enum represents the gas estimation types for different chains.\\n */\\nenum GasEstimationType {\\n    Default,\\n    OptimismEcotone,\\n    OptimismBedrock,\\n    Arbitrum,\\n    Scroll\\n}\\n\\n/**\\n * @title GasInfo\\n * @notice This struct represents the gas pricing information for a specific chain.\\n * @dev Smaller uint types are used for efficient struct packing to save storage costs.\\n */\\nstruct GasInfo {\\n    /// @dev Custom gas pricing rule, such as L1 data fee on L2s\\n    uint64 gasEstimationType;\\n    /// @dev Scalar value needed for specific gas estimation types, expected to be less than 1e10\\n    uint64 l1FeeScalar;\\n    /// @dev Axelar base fee for cross-chain message approval on destination, in terms of source native gas token\\n    uint128 axelarBaseFee;\\n    /// @dev Gas price of destination chain, in terms of the source chain token, i.e dest_gas_price * dest_token_market_price / src_token_market_price\\n    uint128 relativeGasPrice;\\n    /// @dev Needed for specific gas estimation types. Blob base fee of destination chain, in terms of the source chain token, i.e dest_blob_base_fee * dest_token_market_price / src_token_market_price\\n    uint128 relativeBlobBaseFee;\\n    /// @dev Axelar express fee for express execution, in terms of source chain token\\n    uint128 expressFee;\\n}\\n\",\"keccak256\":\"0x7da6d20700698dfae8f8252c442e4bebd29030ffcdac4fbbe986f1ddbcb6365c\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n\\n    /**\\n     * @dev Returns the value of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the value of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from the caller's account to `to`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address to, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets a `value` amount of tokens as the allowance of `spender` over the\\n     * caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from `from` to `to` using the\\n     * allowance mechanism. `value` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\\n}\\n\",\"keccak256\":\"0xc6a8ff0ea489379b61faa647490411b80102578440ab9d84e9a957cc12164e70\",\"license\":\"MIT\"},\"contracts/SeaFortune.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity ^0.8.20;\\r\\n\\r\\nimport \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\r\\nimport { AxelarExecutable } from \\\"@axelar-network/axelar-gmp-sdk-solidity/contracts/executable/AxelarExecutable.sol\\\";\\r\\nimport \\\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGateway.sol\\\";\\r\\nimport \\\"@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGasService.sol\\\";\\r\\n\\r\\ncontract SeaFortune is AxelarExecutable {\\r\\n    address public owner;\\r\\n\\r\\n    uint256 public feePercentage; \\r\\n    uint256 public mapOwnerPercentage; \\r\\n    uint256 public communityPercentage; \\r\\n    uint256 public pointsPercentage; \\r\\n    uint256 public winnerPercentage; \\r\\n\\r\\n    address public communityWallet;\\r\\n\\r\\n    IAxelarGasService public immutable gasService;\\r\\n    mapping(string => string) public trustedRemotes;\\r\\n\\r\\n    struct Player {\\r\\n        address playerAddress;\\r\\n        uint256 points;\\r\\n        uint256 towersLeft;\\r\\n    }\\r\\n\\r\\n    struct Room {\\r\\n        Player player1;\\r\\n        Player player2;\\r\\n        uint256 betAmount;\\r\\n        bool isActive;\\r\\n        address winner;\\r\\n        bool betPaid;\\r\\n        address mapOwner;\\r\\n    }\\r\\n\\r\\n    mapping(uint256 => Room) public rooms;\\r\\n    uint256 public roomCounter;\\r\\n\\r\\n    IERC20 public token;\\r\\n\\r\\n    event RoomCreated(uint256 roomId, uint256 betAmount);\\r\\n    event PlayerJoined(uint256 roomId, address player);\\r\\n    event WinnerDeclared(uint256 roomId, address winner);\\r\\n    event WinningsWithdrawn(uint256 roomId, address winner, uint256 amountWon, uint256 pointsAmount, uint256 communityFee, uint256 mapOwnerFee);\\r\\n    event CrossChainWithdrawalInitiated(uint256 roomId, address winner, string destinationChain, address destinationAddress, uint256 amount);\\r\\n\\r\\n    constructor(\\r\\n        address _tokenAddress,\\r\\n        address _communityWallet,\\r\\n        uint256 _feePercentage,\\r\\n        uint256 _mapOwnerPercentage,\\r\\n        uint256 _communityPercentage,\\r\\n        uint256 _pointsPercentage,\\r\\n        uint256 _winnerPercentage,\\r\\n        address gateway,\\r\\n        address gasServiceAddress\\r\\n    ) AxelarExecutable(gateway) {\\r\\n        owner = msg.sender;\\r\\n        token = IERC20(_tokenAddress);\\r\\n        communityWallet = _communityWallet;\\r\\n\\r\\n        feePercentage = _feePercentage;\\r\\n        mapOwnerPercentage = _mapOwnerPercentage;\\r\\n        communityPercentage = _communityPercentage;\\r\\n        pointsPercentage = _pointsPercentage;\\r\\n        winnerPercentage = _winnerPercentage;\\r\\n\\r\\n        gasService = IAxelarGasService(gasServiceAddress);\\r\\n    }\\r\\n\\r\\n    modifier onlyOwner() {\\r\\n        require(msg.sender == owner, \\\"Not the owner\\\");\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    modifier onlyPlayer(uint256 _roomId) {\\r\\n        require(\\r\\n            msg.sender == rooms[_roomId].player1.playerAddress || msg.sender == rooms[_roomId].player2.playerAddress,\\r\\n            \\\"Not a player in this room\\\"\\r\\n        );\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    function registerRoom(uint256 _betAmount, address _mapOwner) public onlyOwner returns (uint256) {\\r\\n        roomCounter++;\\r\\n        rooms[roomCounter] = Room({\\r\\n            player1: Player(address(0), 0, 3),\\r\\n            player2: Player(address(0), 0, 3),\\r\\n            betAmount: _betAmount,\\r\\n            isActive: true,\\r\\n            winner: address(0),\\r\\n            betPaid: false,\\r\\n            mapOwner: _mapOwner\\r\\n        });\\r\\n        emit RoomCreated(roomCounter, _betAmount);\\r\\n        return roomCounter;\\r\\n    }\\r\\n\\r\\n    function joinRoom(uint256 _roomId) public {\\r\\n        Room storage room = rooms[_roomId];\\r\\n        require(room.isActive, \\\"Room is not active\\\");\\r\\n\\r\\n        if (room.player1.playerAddress == address(0)) {\\r\\n            room.player1.playerAddress = msg.sender;\\r\\n        } else {\\r\\n            require(room.player2.playerAddress == address(0), \\\"Room already has two players\\\");\\r\\n            room.player2.playerAddress = msg.sender;\\r\\n        }\\r\\n\\r\\n        token.transferFrom(msg.sender, address(this), room.betAmount);\\r\\n        emit PlayerJoined(_roomId, msg.sender);\\r\\n    }\\r\\n\\r\\n    function registerTowerDestruction(uint256 _roomId, address _player) public onlyOwner {\\r\\n        Room storage room = rooms[_roomId];\\r\\n        require(room.isActive, \\\"Room is not active\\\");\\r\\n        require(_player == room.player1.playerAddress || _player == room.player2.playerAddress, \\\"Not a player in this room\\\");\\r\\n\\r\\n        if (_player == room.player1.playerAddress) {\\r\\n            room.player1.points++;\\r\\n            room.player2.towersLeft--;\\r\\n        } else {\\r\\n            room.player2.points++;\\r\\n            room.player1.towersLeft--;\\r\\n        }\\r\\n    }\\r\\n\\r\\n    function declareWinner(uint256 _roomId, address _winner) public onlyOwner {\\r\\n        Room storage room = rooms[_roomId];\\r\\n        require(room.isActive, \\\"Room is not active\\\");\\r\\n        require(room.player1.playerAddress == _winner || room.player2.playerAddress == _winner, \\\"Winner must be a player in this room\\\");\\r\\n\\r\\n        room.winner = _winner;\\r\\n        room.isActive = false;\\r\\n        emit WinnerDeclared(_roomId, _winner);\\r\\n    }\\r\\n\\r\\n    function withdrawWinnings(uint256 _roomId) public onlyPlayer(_roomId) {\\r\\n        Room storage room = rooms[_roomId];\\r\\n        require(room.winner != address(0), \\\"No winner declared\\\");\\r\\n        require(!room.betPaid, \\\"Winnings already withdrawn\\\");\\r\\n\\r\\n        uint256 totalBet = room.betAmount * 2;\\r\\n        uint256 winnerAmount = (totalBet * winnerPercentage) / 100;\\r\\n        uint256 pointsAmount = (totalBet * pointsPercentage) / 100;\\r\\n        uint256 communityFee = (totalBet * communityPercentage) / 100;\\r\\n        uint256 mapOwnerFee = (totalBet * mapOwnerPercentage) / 100;\\r\\n\\r\\n        uint256 player1Share = (pointsAmount * room.player1.points) / (room.player1.points + room.player2.points);\\r\\n        uint256 player2Share = pointsAmount - player1Share;\\r\\n\\r\\n        if (msg.sender == room.winner) {\\r\\n            token.transfer(msg.sender, winnerAmount);\\r\\n        } \\r\\n\\r\\n        if (msg.sender == room.player1.playerAddress) {\\r\\n            token.transfer(msg.sender, player1Share);\\r\\n        } else if (msg.sender == room.player2.playerAddress) {\\r\\n            token.transfer(msg.sender, player2Share);\\r\\n        }\\r\\n\\r\\n        token.transfer(communityWallet, communityFee);\\r\\n        token.transfer(room.mapOwner, mapOwnerFee);\\r\\n        token.transfer(owner, (totalBet * feePercentage) / 100);\\r\\n\\r\\n        room.betPaid = true;\\r\\n        emit WinningsWithdrawn(_roomId, room.winner, winnerAmount, pointsAmount, communityFee, mapOwnerFee);\\r\\n    }\\r\\n\\r\\n    // Function to set trusted remote addresses for cross-chain communication.\\r\\n    function setTrustedRemote(string calldata chain, string calldata remoteAddress) external onlyOwner {\\r\\n        trustedRemotes[chain] = remoteAddress;\\r\\n    }\\r\\n\\r\\n    // New function to withdraw winnings cross-chain\\r\\n    function withdrawWinningsCrossChain(\\r\\n        uint256 _roomId,\\r\\n        string calldata destinationChain,\\r\\n        address destinationAddress\\r\\n    ) public payable onlyPlayer(_roomId) {\\r\\n        Room storage room = rooms[_roomId];\\r\\n        require(room.winner != address(0), \\\"No winner declared\\\");\\r\\n        require(!room.betPaid, \\\"Winnings already withdrawn\\\");\\r\\n        require(bytes(trustedRemotes[destinationChain]).length > 0, \\\"Destination chain not trusted\\\");\\r\\n\\r\\n        uint256 totalBet = room.betAmount * 2;\\r\\n        uint256 winnerAmount = (totalBet * winnerPercentage) / 100;\\r\\n\\r\\n        // Prepare the payload for cross-chain transfer\\r\\n        bytes memory payload = abi.encode(destinationAddress, winnerAmount);\\r\\n\\r\\n        // Pay for the gas required for the cross-chain transfer\\r\\n        if (msg.value > 0) {\\r\\n            gasService.payNativeGasForContractCall{value: msg.value}(\\r\\n                address(this),\\r\\n                destinationChain,\\r\\n                trustedRemotes[destinationChain],\\r\\n                payload,\\r\\n                msg.sender\\r\\n            );\\r\\n        }\\r\\n\\r\\n        // Initiate the cross-chain transfer through Axelar\\r\\n        gateway.callContract(destinationChain, trustedRemotes[destinationChain], payload);\\r\\n\\r\\n        // Deduct and transfer the community fee and map owner fee\\r\\n        uint256 communityFee = (totalBet * communityPercentage) / 100;\\r\\n        uint256 mapOwnerFee = (totalBet * mapOwnerPercentage) / 100;\\r\\n\\r\\n        token.transfer(communityWallet, communityFee);\\r\\n        token.transfer(room.mapOwner, mapOwnerFee);\\r\\n        token.transfer(owner, (totalBet * feePercentage) / 100);\\r\\n\\r\\n        room.betPaid = true;\\r\\n        emit CrossChainWithdrawalInitiated(_roomId, room.winner, destinationChain, destinationAddress, winnerAmount);\\r\\n    }\\r\\n\\r\\n    // Internal function to handle the execution of cross-chain transfers\\r\\n    function _execute(\\r\\n        string calldata sourceChain,\\r\\n        string calldata sourceAddress,\\r\\n        bytes calldata payload\\r\\n    ) internal override {\\r\\n        require(keccak256(bytes(sourceAddress)) == keccak256(bytes(trustedRemotes[sourceChain])), \\\"Not a trusted source\\\");\\r\\n\\r\\n        // Decode the payload to get the destination address and token amount\\r\\n        (address recipient, uint256 amount) = abi.decode(payload, (address, uint256));\\r\\n\\r\\n        // Transfer the tokens to the recipient on the destination chain\\r\\n        token.transfer(recipient, amount);\\r\\n    }\\r\\n\\r\\n    function changeCommunityWallet(address _newWallet) public onlyOwner {\\r\\n        communityWallet = _newWallet;\\r\\n    }\\r\\n\\r\\n    function withdrawOwnerTokens() public onlyOwner {\\r\\n        uint256 balance = token.balanceOf(address(this));\\r\\n        token.transfer(owner, balance);\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0xee34625fc1f94688d79fec58312c42ec433b88d2bb53c697f43cc6f7cf362a3b\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60c06040523480156200001157600080fd5b50604051620027fd380380620027fd8339810160408190526200003491620000de565b816001600160a01b0381166200005d5760405163e6c4247b60e01b815260040160405180910390fd5b6001600160a01b0390811660805260008054336001600160a01b031991821617909155600a805482169b83169b909b17909a5560068054909a1698811698909817909855506001949094556002929092556003556004556005551660a0526200016c565b80516001600160a01b0381168114620000d957600080fd5b919050565b60008060008060008060008060006101208a8c031215620000fe57600080fd5b620001098a620000c1565b98506200011960208b01620000c1565b975060408a0151965060608a0151955060808a0151945060a08a0151935060c08a015192506200014c60e08b01620000c1565b91506200015d6101008b01620000c1565b90509295985092959850929598565b60805160a05161264f620001ae600039600081816103a701526111ed01526000818161016201528181610b3b01528181610c1e0152611298015261264f6000f3fe60806040526004361061014b5760003560e01c8063920a14a7116100b6578063c4e4e7df1161006f578063c4e4e7df146104b4578063c7574839146104d4578063c82403d6146104f4578063ccbccbe51461050a578063e374b0971461051f578063fc0c546a1461053f57600080fd5b8063920a14a714610412578063921c45ca146104325780639cfc4b45146104485780639ee28c8a14610468578063a001ecdd1461047e578063a1df30731461049457600080fd5b80634e90b9c0116101085780634e90b9c0146103485780635fb61d4c146103755780636a22d8cc1461039557806382b98f9d146103c9578063891a1b9e146103df5780638da5cb5b146103f257600080fd5b8063116191b61461015057806314794702146101a15780631a98b2e0146101c35780631bae0ac8146101e35780633bcc746f146103045780634916065814610328575b600080fd5b34801561015c57600080fd5b506101847f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b3480156101ad57600080fd5b506101c16101bc366004611c3d565b61055f565b005b3480156101cf57600080fd5b506101c16101de366004611c9f565b610b0a565b3480156101ef57600080fd5b506102936101fe366004611c3d565b60086020818152600092835260409283902083516060808201865282546001600160a01b039081168352600184015483860152600284015483880152865191820187526003840154811682526004840154948201949094526005830154958101959095526006820154600783015492909401549094939260ff808416936101008104831693600160a81b909104909116911687565b6040805188516001600160a01b0390811682526020808b015181840152998301518284015288518116606083015298880151608082015296015160a087015260c086019490945291151560e08501528416610100840152151561012083015290911661014082015261016001610198565b34801561031057600080fd5b5061031a60025481565b604051908152602001610198565b34801561033457600080fd5b506101c1610343366004611d79565b610bed565b34801561035457600080fd5b50610368610363366004611e33565b610cd5565b6040516101989190611f2a565b34801561038157600080fd5b5061031a610390366004611f5c565b610d7a565b3480156103a157600080fd5b506101847f000000000000000000000000000000000000000000000000000000000000000081565b3480156103d557600080fd5b5061031a60055481565b6101c16103ed366004611f8c565b610ff5565b3480156103fe57600080fd5b50600054610184906001600160a01b031681565b34801561041e57600080fd5b506101c161042d366004611feb565b611576565b34801561043e57600080fd5b5061031a60095481565b34801561045457600080fd5b506101c1610463366004611c3d565b6115d6565b34801561047457600080fd5b5061031a60045481565b34801561048a57600080fd5b5061031a60015481565b3480156104a057600080fd5b506101c16104af366004612057565b61175a565b3480156104c057600080fd5b506101c16104cf366004611f5c565b6117a6565b3480156104e057600080fd5b50600654610184906001600160a01b031681565b34801561050057600080fd5b5061031a60035481565b34801561051657600080fd5b506101c16118be565b34801561052b57600080fd5b506101c161053a366004611f5c565b6119d4565b34801561054b57600080fd5b50600a54610184906001600160a01b031681565b60008181526008602052604090205481906001600160a01b031633148061059f57506000818152600860205260409020600301546001600160a01b031633145b6105c45760405162461bcd60e51b81526004016105bb90612074565b60405180910390fd5b6000828152600860205260409020600781015461010090046001600160a01b03166106265760405162461bcd60e51b8152602060048201526012602482015271139bc81dda5b9b995c88191958db185c995960721b60448201526064016105bb565b6007810154600160a81b900460ff16156106825760405162461bcd60e51b815260206004820152601a60248201527f57696e6e696e677320616c72656164792077697468647261776e00000000000060448201526064016105bb565b60008160060154600261069591906120c1565b905060006064600554836106a991906120c1565b6106b391906120d8565b905060006064600454846106c791906120c1565b6106d191906120d8565b905060006064600354856106e591906120c1565b6106ef91906120d8565b9050600060646002548661070391906120c1565b61070d91906120d8565b6004870154600188015491925060009161072791906120fa565b600188015461073690866120c1565b61074091906120d8565b9050600061074e828661210d565b600789015490915061010090046001600160a01b031633036107e157600a5460405163a9059cbb60e01b81526001600160a01b039091169063a9059cbb9061079c9033908a90600401612120565b6020604051808303816000875af11580156107bb573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906107df9190612139565b505b87546001600160a01b0316330361086d57600a5460405163a9059cbb60e01b81526001600160a01b039091169063a9059cbb906108249033908690600401612120565b6020604051808303816000875af1158015610843573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108679190612139565b506108f8565b60038801546001600160a01b031633036108f857600a5460405163a9059cbb60e01b81526001600160a01b039091169063a9059cbb906108b39033908590600401612120565b6020604051808303816000875af11580156108d2573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108f69190612139565b505b600a5460065460405163a9059cbb60e01b81526001600160a01b039283169263a9059cbb9261092e929116908890600401612120565b6020604051808303816000875af115801561094d573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906109719190612139565b50600a54600889015460405163a9059cbb60e01b81526001600160a01b039283169263a9059cbb926109aa929116908790600401612120565b6020604051808303816000875af11580156109c9573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906109ed9190612139565b50600a546000546001546001600160a01b039283169263a9059cbb921690606490610a18908c6120c1565b610a2291906120d8565b6040518363ffffffff1660e01b8152600401610a3f929190612120565b6020604051808303816000875af1158015610a5e573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610a829190612139565b50600788018054600160a81b60ff60a81b199091161790819055604080518c81526101009092046001600160a01b031660208301528101879052606081018690526080810185905260a081018490527f613edb29473d2b242c7584b13b372f9edfa966ba77b561d5ad3ef65ba93296339060c00160405180910390a150505050505050505050565b60008585604051610b1c92919061215b565b604051908190038120631876eed960e01b825291506001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690631876eed990610b80908e908e908e908e908e9089908d908d908d90600401612194565b6020604051808303816000875af1158015610b9f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610bc39190612139565b610be057604051631403112d60e21b815260040160405180910390fd5b5050505050505050505050565b60008282604051610bff92919061215b565b604051908190038120635f6970c360e01b825291506001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690635f6970c390610c5d908b908b908b908b908b9089906004016121f3565b6020604051808303816000875af1158015610c7c573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ca09190612139565b610cbd57604051631403112d60e21b815260040160405180910390fd5b610ccb878787878787611b27565b5050505050505050565b805160208183018101805160078252928201919093012091528054610cf990612234565b80601f0160208091040260200160405190810160405280929190818152602001828054610d2590612234565b8015610d725780601f10610d4757610100808354040283529160200191610d72565b820191906000526020600020905b815481529060010190602001808311610d5557829003601f168201915b505050505081565b600080546001600160a01b03163314610da55760405162461bcd60e51b81526004016105bb9061226e565b60098054906000610db583612295565b91905055506040518060e00160405280604051806060016040528060006001600160a01b031681526020016000815260200160038152508152602001604051806060016040528060006001600160a01b03168152602001600081526020016003815250815260200184815260200160011515815260200160006001600160a01b03168152602001600015158152602001836001600160a01b031681525060086000600954815260200190815260200160002060008201518160000160008201518160000160006101000a8154816001600160a01b0302191690836001600160a01b031602179055506020820151816001015560408201518160020155505060208201518160030160008201518160000160006101000a8154816001600160a01b0302191690836001600160a01b03160217905550602082015181600101556040820151816002015550506040820151816006015560608201518160070160006101000a81548160ff02191690831515021790555060808201518160070160016101000a8154816001600160a01b0302191690836001600160a01b0316021790555060a08201518160070160156101000a81548160ff02191690831515021790555060c08201518160080160006101000a8154816001600160a01b0302191690836001600160a01b031602179055509050507fce010a20c19ee1b8a42baca23af0187045e22b247e4ba704cc780cf175506d3260095484604051610fe2929190918252602082015260400190565b60405180910390a1506009545b92915050565b60008481526008602052604090205484906001600160a01b031633148061103557506000818152600860205260409020600301546001600160a01b031633145b6110515760405162461bcd60e51b81526004016105bb90612074565b6000858152600860205260409020600781015461010090046001600160a01b03166110b35760405162461bcd60e51b8152602060048201526012602482015271139bc81dda5b9b995c88191958db185c995960721b60448201526064016105bb565b6007810154600160a81b900460ff161561110f5760405162461bcd60e51b815260206004820152601a60248201527f57696e6e696e677320616c72656164792077697468647261776e00000000000060448201526064016105bb565b60006007868660405161112392919061215b565b9081526020016040518091039020805461113c90612234565b90501161118b5760405162461bcd60e51b815260206004820152601d60248201527f44657374696e6174696f6e20636861696e206e6f74207472757374656400000060448201526064016105bb565b60008160060154600261119e91906120c1565b905060006064600554836111b291906120c1565b6111bc91906120d8565b9050600085826040516020016111d3929190612120565b60408051601f1981840301815291905290503415611296577f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316630c93e3bb34308b8b60078e8e60405161123092919061215b565b9081526040519081900360200181206001600160e01b031960e088901b168252611263949392918990339060040161232b565b6000604051808303818588803b15801561127c57600080fd5b505af1158015611290573d6000803e3d6000fd5b50505050505b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316631c92115f898960078c8c6040516112d992919061215b565b9081526040519081900360200181206001600160e01b031960e086901b168252611309939291879060040161238b565b600060405180830381600087803b15801561132357600080fd5b505af1158015611337573d6000803e3d6000fd5b50505050600060646003548561134d91906120c1565b61135791906120d8565b9050600060646002548661136b91906120c1565b61137591906120d8565b600a5460065460405163a9059cbb60e01b81529293506001600160a01b039182169263a9059cbb926113ad9216908690600401612120565b6020604051808303816000875af11580156113cc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906113f09190612139565b50600a54600887015460405163a9059cbb60e01b81526001600160a01b039283169263a9059cbb92611429929116908590600401612120565b6020604051808303816000875af1158015611448573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061146c9190612139565b50600a546000546001546001600160a01b039283169263a9059cbb921690606490611497908a6120c1565b6114a191906120d8565b6040518363ffffffff1660e01b81526004016114be929190612120565b6020604051808303816000875af11580156114dd573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906115019190612139565b5060078601805460ff60a81b1916600160a81b17908190556040517f56054d3f087aecdd949d9ce4266a4d47e4802d41fe9ea2ba8794771e69dc1b1791611561918e916001600160a01b0361010090910416908e908e908e908b906123d0565b60405180910390a15050505050505050505050565b6000546001600160a01b031633146115a05760405162461bcd60e51b81526004016105bb9061226e565b8181600786866040516115b492919061215b565b908152602001604051809103902091826115cf92919061245b565b5050505050565b6000818152600860205260409020600781015460ff166116085760405162461bcd60e51b81526004016105bb9061251b565b80546001600160a01b031661162c5780546001600160a01b0319163317815561169c565b60038101546001600160a01b0316156116875760405162461bcd60e51b815260206004820152601c60248201527f526f6f6d20616c7265616479206861732074776f20706c61796572730000000060448201526064016105bb565b6003810180546001600160a01b031916331790555b600a5460068201546040516323b872dd60e01b815233600482015230602482015260448101919091526001600160a01b03909116906323b872dd906064016020604051808303816000875af11580156116f9573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061171d9190612139565b50604080518381523360208201527f87969bc7faf902221a147b95ceba76e011c5efb0339a0a8ee7a2bb82d9cfbbd6910160405180910390a15050565b6000546001600160a01b031633146117845760405162461bcd60e51b81526004016105bb9061226e565b600680546001600160a01b0319166001600160a01b0392909216919091179055565b6000546001600160a01b031633146117d05760405162461bcd60e51b81526004016105bb9061226e565b6000828152600860205260409020600781015460ff166118025760405162461bcd60e51b81526004016105bb9061251b565b80546001600160a01b038381169116148061182c575060038101546001600160a01b038381169116145b6118485760405162461bcd60e51b81526004016105bb90612074565b80546001600160a01b03908116908316036118905760018101805490600061186f83612295565b909155505060058101805490600061188683612547565b9190505550505050565b6004810180549060006118a283612295565b909155505060028101805490600061188683612547565b505050565b6000546001600160a01b031633146118e85760405162461bcd60e51b81526004016105bb9061226e565b600a546040516370a0823160e01b81523060048201526000916001600160a01b0316906370a0823190602401602060405180830381865afa158015611931573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611955919061255e565b600a5460005460405163a9059cbb60e01b81529293506001600160a01b039182169263a9059cbb9261198d9216908590600401612120565b6020604051808303816000875af11580156119ac573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906119d09190612139565b5050565b6000546001600160a01b031633146119fe5760405162461bcd60e51b81526004016105bb9061226e565b6000828152600860205260409020600781015460ff16611a305760405162461bcd60e51b81526004016105bb9061251b565b80546001600160a01b0383811691161480611a5a575060038101546001600160a01b038381169116145b611ab25760405162461bcd60e51b8152602060048201526024808201527f57696e6e6572206d757374206265206120706c6179657220696e207468697320604482015263726f6f6d60e01b60648201526084016105bb565b6007810180546001600160a81b0319166101006001600160a01b03851690810260ff1916919091179091556040805185815260208101929092527f4d3647387a0671b375a6cfb75769ed74ec10d3a37f6d3b392b12926fe9a099d1910160405180910390a1505050565b505050505050505050565b60078686604051611b3992919061215b565b908152604051908190036020018120611b5191612577565b60405180910390208484604051611b6992919061215b565b604051809103902014611bb55760405162461bcd60e51b81526020600482015260146024820152734e6f742061207472757374656420736f7572636560601b60448201526064016105bb565b600080611bc4838501856125ed565b600a5460405163a9059cbb60e01b81529294509092506001600160a01b03169063a9059cbb90611bfa9085908590600401612120565b6020604051808303816000875af1158015611c19573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611b1c9190612139565b600060208284031215611c4f57600080fd5b5035919050565b60008083601f840112611c6857600080fd5b50813567ffffffffffffffff811115611c8057600080fd5b602083019150836020828501011115611c9857600080fd5b9250929050565b60008060008060008060008060008060c08b8d031215611cbe57600080fd5b8a35995060208b013567ffffffffffffffff80821115611cdd57600080fd5b611ce98e838f01611c56565b909b50995060408d0135915080821115611d0257600080fd5b611d0e8e838f01611c56565b909950975060608d0135915080821115611d2757600080fd5b611d338e838f01611c56565b909750955060808d0135915080821115611d4c57600080fd5b50611d598d828e01611c56565b9150809450508092505060a08b013590509295989b9194979a5092959850565b60008060008060008060006080888a031215611d9457600080fd5b87359650602088013567ffffffffffffffff80821115611db357600080fd5b611dbf8b838c01611c56565b909850965060408a0135915080821115611dd857600080fd5b611de48b838c01611c56565b909650945060608a0135915080821115611dfd57600080fd5b50611e0a8a828b01611c56565b989b979a50959850939692959293505050565b634e487b7160e01b600052604160045260246000fd5b600060208284031215611e4557600080fd5b813567ffffffffffffffff80821115611e5d57600080fd5b818401915084601f830112611e7157600080fd5b813581811115611e8357611e83611e1d565b604051601f8201601f19908116603f01168101908382118183101715611eab57611eab611e1d565b81604052828152876020848701011115611ec457600080fd5b826020860160208301376000928101602001929092525095945050505050565b6000815180845260005b81811015611f0a57602081850181015186830182015201611eee565b506000602082860101526020601f19601f83011685010191505092915050565b602081526000611f3d6020830184611ee4565b9392505050565b6001600160a01b0381168114611f5957600080fd5b50565b60008060408385031215611f6f57600080fd5b823591506020830135611f8181611f44565b809150509250929050565b60008060008060608587031215611fa257600080fd5b84359350602085013567ffffffffffffffff811115611fc057600080fd5b611fcc87828801611c56565b9094509250506040850135611fe081611f44565b939692955090935050565b6000806000806040858703121561200157600080fd5b843567ffffffffffffffff8082111561201957600080fd5b61202588838901611c56565b9096509450602087013591508082111561203e57600080fd5b5061204b87828801611c56565b95989497509550505050565b60006020828403121561206957600080fd5b8135611f3d81611f44565b60208082526019908201527f4e6f74206120706c6179657220696e207468697320726f6f6d00000000000000604082015260600190565b634e487b7160e01b600052601160045260246000fd5b8082028115828204841417610fef57610fef6120ab565b6000826120f557634e487b7160e01b600052601260045260246000fd5b500490565b80820180821115610fef57610fef6120ab565b81810381811115610fef57610fef6120ab565b6001600160a01b03929092168252602082015260400190565b60006020828403121561214b57600080fd5b81518015158114611f3d57600080fd5b8183823760009101908152919050565b81835281816020850137506000828201602090810191909152601f909101601f19169091010190565b89815260c0602082015260006121ae60c083018a8c61216b565b82810360408401526121c181898b61216b565b905086606084015282810360808401526121dc81868861216b565b9150508260a08301529a9950505050505050505050565b86815260806020820152600061220d60808301878961216b565b828103604084015261222081868861216b565b915050826060830152979650505050505050565b600181811c9082168061224857607f821691505b60208210810361226857634e487b7160e01b600052602260045260246000fd5b50919050565b6020808252600d908201526c2737ba103a34329037bbb732b960991b604082015260600190565b6000600182016122a7576122a76120ab565b5060010190565b600081546122bb81612234565b8085526020600183811680156122d857600181146122f257612320565b60ff1985168884015283151560051b880183019550612320565b866000528260002060005b858110156123185781548a82018601529083019084016122fd565b890184019650505b505050505092915050565b600060018060a01b03808916835260a0602084015261234e60a08401888a61216b565b838103604085015261236081886122ae565b905083810360608501526123748187611ee4565b925050808416608084015250979650505050505050565b60608152600061239f60608301868861216b565b82810360208401526123b181866122ae565b905082810360408401526123c58185611ee4565b979650505050505050565b868152600060018060a01b03808816602084015260a060408401526123f960a08401878961216b565b941660608301525060800152949350505050565b601f8211156118b957600081815260208120601f850160051c810160208610156124345750805b601f850160051c820191505b8181101561245357828155600101612440565b505050505050565b67ffffffffffffffff83111561247357612473611e1d565b612487836124818354612234565b8361240d565b6000601f8411600181146124bb57600085156124a35750838201355b600019600387901b1c1916600186901b1783556115cf565b600083815260209020601f19861690835b828110156124ec57868501358255602094850194600190920191016124cc565b50868210156125095760001960f88860031b161c19848701351681555b505060018560011b0183555050505050565b602080825260129082015271526f6f6d206973206e6f742061637469766560701b604082015260600190565b600081612556576125566120ab565b506000190190565b60006020828403121561257057600080fd5b5051919050565b600080835461258581612234565b6001828116801561259d57600181146125b2576125e1565b60ff19841687528215158302870194506125e1565b8760005260208060002060005b858110156125d85781548a8201529084019082016125bf565b50505082870194505b50929695505050505050565b6000806040838503121561260057600080fd5b823561260b81611f44565b94602093909301359350505056fea264697066735822122089d19db516fccb9da6e08d545bac5e8bf47a03341d4d2ce836e635163918099c64736f6c63430008140033",
+  "deployedBytecode": "0x60806040526004361061014b5760003560e01c8063920a14a7116100b6578063c4e4e7df1161006f578063c4e4e7df146104b4578063c7574839146104d4578063c82403d6146104f4578063ccbccbe51461050a578063e374b0971461051f578063fc0c546a1461053f57600080fd5b8063920a14a714610412578063921c45ca146104325780639cfc4b45146104485780639ee28c8a14610468578063a001ecdd1461047e578063a1df30731461049457600080fd5b80634e90b9c0116101085780634e90b9c0146103485780635fb61d4c146103755780636a22d8cc1461039557806382b98f9d146103c9578063891a1b9e146103df5780638da5cb5b146103f257600080fd5b8063116191b61461015057806314794702146101a15780631a98b2e0146101c35780631bae0ac8146101e35780633bcc746f146103045780634916065814610328575b600080fd5b34801561015c57600080fd5b506101847f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b3480156101ad57600080fd5b506101c16101bc366004611c3d565b61055f565b005b3480156101cf57600080fd5b506101c16101de366004611c9f565b610b0a565b3480156101ef57600080fd5b506102936101fe366004611c3d565b60086020818152600092835260409283902083516060808201865282546001600160a01b039081168352600184015483860152600284015483880152865191820187526003840154811682526004840154948201949094526005830154958101959095526006820154600783015492909401549094939260ff808416936101008104831693600160a81b909104909116911687565b6040805188516001600160a01b0390811682526020808b015181840152998301518284015288518116606083015298880151608082015296015160a087015260c086019490945291151560e08501528416610100840152151561012083015290911661014082015261016001610198565b34801561031057600080fd5b5061031a60025481565b604051908152602001610198565b34801561033457600080fd5b506101c1610343366004611d79565b610bed565b34801561035457600080fd5b50610368610363366004611e33565b610cd5565b6040516101989190611f2a565b34801561038157600080fd5b5061031a610390366004611f5c565b610d7a565b3480156103a157600080fd5b506101847f000000000000000000000000000000000000000000000000000000000000000081565b3480156103d557600080fd5b5061031a60055481565b6101c16103ed366004611f8c565b610ff5565b3480156103fe57600080fd5b50600054610184906001600160a01b031681565b34801561041e57600080fd5b506101c161042d366004611feb565b611576565b34801561043e57600080fd5b5061031a60095481565b34801561045457600080fd5b506101c1610463366004611c3d565b6115d6565b34801561047457600080fd5b5061031a60045481565b34801561048a57600080fd5b5061031a60015481565b3480156104a057600080fd5b506101c16104af366004612057565b61175a565b3480156104c057600080fd5b506101c16104cf366004611f5c565b6117a6565b3480156104e057600080fd5b50600654610184906001600160a01b031681565b34801561050057600080fd5b5061031a60035481565b34801561051657600080fd5b506101c16118be565b34801561052b57600080fd5b506101c161053a366004611f5c565b6119d4565b34801561054b57600080fd5b50600a54610184906001600160a01b031681565b60008181526008602052604090205481906001600160a01b031633148061059f57506000818152600860205260409020600301546001600160a01b031633145b6105c45760405162461bcd60e51b81526004016105bb90612074565b60405180910390fd5b6000828152600860205260409020600781015461010090046001600160a01b03166106265760405162461bcd60e51b8152602060048201526012602482015271139bc81dda5b9b995c88191958db185c995960721b60448201526064016105bb565b6007810154600160a81b900460ff16156106825760405162461bcd60e51b815260206004820152601a60248201527f57696e6e696e677320616c72656164792077697468647261776e00000000000060448201526064016105bb565b60008160060154600261069591906120c1565b905060006064600554836106a991906120c1565b6106b391906120d8565b905060006064600454846106c791906120c1565b6106d191906120d8565b905060006064600354856106e591906120c1565b6106ef91906120d8565b9050600060646002548661070391906120c1565b61070d91906120d8565b6004870154600188015491925060009161072791906120fa565b600188015461073690866120c1565b61074091906120d8565b9050600061074e828661210d565b600789015490915061010090046001600160a01b031633036107e157600a5460405163a9059cbb60e01b81526001600160a01b039091169063a9059cbb9061079c9033908a90600401612120565b6020604051808303816000875af11580156107bb573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906107df9190612139565b505b87546001600160a01b0316330361086d57600a5460405163a9059cbb60e01b81526001600160a01b039091169063a9059cbb906108249033908690600401612120565b6020604051808303816000875af1158015610843573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108679190612139565b506108f8565b60038801546001600160a01b031633036108f857600a5460405163a9059cbb60e01b81526001600160a01b039091169063a9059cbb906108b39033908590600401612120565b6020604051808303816000875af11580156108d2573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108f69190612139565b505b600a5460065460405163a9059cbb60e01b81526001600160a01b039283169263a9059cbb9261092e929116908890600401612120565b6020604051808303816000875af115801561094d573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906109719190612139565b50600a54600889015460405163a9059cbb60e01b81526001600160a01b039283169263a9059cbb926109aa929116908790600401612120565b6020604051808303816000875af11580156109c9573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906109ed9190612139565b50600a546000546001546001600160a01b039283169263a9059cbb921690606490610a18908c6120c1565b610a2291906120d8565b6040518363ffffffff1660e01b8152600401610a3f929190612120565b6020604051808303816000875af1158015610a5e573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610a829190612139565b50600788018054600160a81b60ff60a81b199091161790819055604080518c81526101009092046001600160a01b031660208301528101879052606081018690526080810185905260a081018490527f613edb29473d2b242c7584b13b372f9edfa966ba77b561d5ad3ef65ba93296339060c00160405180910390a150505050505050505050565b60008585604051610b1c92919061215b565b604051908190038120631876eed960e01b825291506001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690631876eed990610b80908e908e908e908e908e9089908d908d908d90600401612194565b6020604051808303816000875af1158015610b9f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610bc39190612139565b610be057604051631403112d60e21b815260040160405180910390fd5b5050505050505050505050565b60008282604051610bff92919061215b565b604051908190038120635f6970c360e01b825291506001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690635f6970c390610c5d908b908b908b908b908b9089906004016121f3565b6020604051808303816000875af1158015610c7c573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ca09190612139565b610cbd57604051631403112d60e21b815260040160405180910390fd5b610ccb878787878787611b27565b5050505050505050565b805160208183018101805160078252928201919093012091528054610cf990612234565b80601f0160208091040260200160405190810160405280929190818152602001828054610d2590612234565b8015610d725780601f10610d4757610100808354040283529160200191610d72565b820191906000526020600020905b815481529060010190602001808311610d5557829003601f168201915b505050505081565b600080546001600160a01b03163314610da55760405162461bcd60e51b81526004016105bb9061226e565b60098054906000610db583612295565b91905055506040518060e00160405280604051806060016040528060006001600160a01b031681526020016000815260200160038152508152602001604051806060016040528060006001600160a01b03168152602001600081526020016003815250815260200184815260200160011515815260200160006001600160a01b03168152602001600015158152602001836001600160a01b031681525060086000600954815260200190815260200160002060008201518160000160008201518160000160006101000a8154816001600160a01b0302191690836001600160a01b031602179055506020820151816001015560408201518160020155505060208201518160030160008201518160000160006101000a8154816001600160a01b0302191690836001600160a01b03160217905550602082015181600101556040820151816002015550506040820151816006015560608201518160070160006101000a81548160ff02191690831515021790555060808201518160070160016101000a8154816001600160a01b0302191690836001600160a01b0316021790555060a08201518160070160156101000a81548160ff02191690831515021790555060c08201518160080160006101000a8154816001600160a01b0302191690836001600160a01b031602179055509050507fce010a20c19ee1b8a42baca23af0187045e22b247e4ba704cc780cf175506d3260095484604051610fe2929190918252602082015260400190565b60405180910390a1506009545b92915050565b60008481526008602052604090205484906001600160a01b031633148061103557506000818152600860205260409020600301546001600160a01b031633145b6110515760405162461bcd60e51b81526004016105bb90612074565b6000858152600860205260409020600781015461010090046001600160a01b03166110b35760405162461bcd60e51b8152602060048201526012602482015271139bc81dda5b9b995c88191958db185c995960721b60448201526064016105bb565b6007810154600160a81b900460ff161561110f5760405162461bcd60e51b815260206004820152601a60248201527f57696e6e696e677320616c72656164792077697468647261776e00000000000060448201526064016105bb565b60006007868660405161112392919061215b565b9081526020016040518091039020805461113c90612234565b90501161118b5760405162461bcd60e51b815260206004820152601d60248201527f44657374696e6174696f6e20636861696e206e6f74207472757374656400000060448201526064016105bb565b60008160060154600261119e91906120c1565b905060006064600554836111b291906120c1565b6111bc91906120d8565b9050600085826040516020016111d3929190612120565b60408051601f1981840301815291905290503415611296577f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316630c93e3bb34308b8b60078e8e60405161123092919061215b565b9081526040519081900360200181206001600160e01b031960e088901b168252611263949392918990339060040161232b565b6000604051808303818588803b15801561127c57600080fd5b505af1158015611290573d6000803e3d6000fd5b50505050505b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316631c92115f898960078c8c6040516112d992919061215b565b9081526040519081900360200181206001600160e01b031960e086901b168252611309939291879060040161238b565b600060405180830381600087803b15801561132357600080fd5b505af1158015611337573d6000803e3d6000fd5b50505050600060646003548561134d91906120c1565b61135791906120d8565b9050600060646002548661136b91906120c1565b61137591906120d8565b600a5460065460405163a9059cbb60e01b81529293506001600160a01b039182169263a9059cbb926113ad9216908690600401612120565b6020604051808303816000875af11580156113cc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906113f09190612139565b50600a54600887015460405163a9059cbb60e01b81526001600160a01b039283169263a9059cbb92611429929116908590600401612120565b6020604051808303816000875af1158015611448573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061146c9190612139565b50600a546000546001546001600160a01b039283169263a9059cbb921690606490611497908a6120c1565b6114a191906120d8565b6040518363ffffffff1660e01b81526004016114be929190612120565b6020604051808303816000875af11580156114dd573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906115019190612139565b5060078601805460ff60a81b1916600160a81b17908190556040517f56054d3f087aecdd949d9ce4266a4d47e4802d41fe9ea2ba8794771e69dc1b1791611561918e916001600160a01b0361010090910416908e908e908e908b906123d0565b60405180910390a15050505050505050505050565b6000546001600160a01b031633146115a05760405162461bcd60e51b81526004016105bb9061226e565b8181600786866040516115b492919061215b565b908152602001604051809103902091826115cf92919061245b565b5050505050565b6000818152600860205260409020600781015460ff166116085760405162461bcd60e51b81526004016105bb9061251b565b80546001600160a01b031661162c5780546001600160a01b0319163317815561169c565b60038101546001600160a01b0316156116875760405162461bcd60e51b815260206004820152601c60248201527f526f6f6d20616c7265616479206861732074776f20706c61796572730000000060448201526064016105bb565b6003810180546001600160a01b031916331790555b600a5460068201546040516323b872dd60e01b815233600482015230602482015260448101919091526001600160a01b03909116906323b872dd906064016020604051808303816000875af11580156116f9573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061171d9190612139565b50604080518381523360208201527f87969bc7faf902221a147b95ceba76e011c5efb0339a0a8ee7a2bb82d9cfbbd6910160405180910390a15050565b6000546001600160a01b031633146117845760405162461bcd60e51b81526004016105bb9061226e565b600680546001600160a01b0319166001600160a01b0392909216919091179055565b6000546001600160a01b031633146117d05760405162461bcd60e51b81526004016105bb9061226e565b6000828152600860205260409020600781015460ff166118025760405162461bcd60e51b81526004016105bb9061251b565b80546001600160a01b038381169116148061182c575060038101546001600160a01b038381169116145b6118485760405162461bcd60e51b81526004016105bb90612074565b80546001600160a01b03908116908316036118905760018101805490600061186f83612295565b909155505060058101805490600061188683612547565b9190505550505050565b6004810180549060006118a283612295565b909155505060028101805490600061188683612547565b505050565b6000546001600160a01b031633146118e85760405162461bcd60e51b81526004016105bb9061226e565b600a546040516370a0823160e01b81523060048201526000916001600160a01b0316906370a0823190602401602060405180830381865afa158015611931573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611955919061255e565b600a5460005460405163a9059cbb60e01b81529293506001600160a01b039182169263a9059cbb9261198d9216908590600401612120565b6020604051808303816000875af11580156119ac573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906119d09190612139565b5050565b6000546001600160a01b031633146119fe5760405162461bcd60e51b81526004016105bb9061226e565b6000828152600860205260409020600781015460ff16611a305760405162461bcd60e51b81526004016105bb9061251b565b80546001600160a01b0383811691161480611a5a575060038101546001600160a01b038381169116145b611ab25760405162461bcd60e51b8152602060048201526024808201527f57696e6e6572206d757374206265206120706c6179657220696e207468697320604482015263726f6f6d60e01b60648201526084016105bb565b6007810180546001600160a81b0319166101006001600160a01b03851690810260ff1916919091179091556040805185815260208101929092527f4d3647387a0671b375a6cfb75769ed74ec10d3a37f6d3b392b12926fe9a099d1910160405180910390a1505050565b505050505050505050565b60078686604051611b3992919061215b565b908152604051908190036020018120611b5191612577565b60405180910390208484604051611b6992919061215b565b604051809103902014611bb55760405162461bcd60e51b81526020600482015260146024820152734e6f742061207472757374656420736f7572636560601b60448201526064016105bb565b600080611bc4838501856125ed565b600a5460405163a9059cbb60e01b81529294509092506001600160a01b03169063a9059cbb90611bfa9085908590600401612120565b6020604051808303816000875af1158015611c19573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611b1c9190612139565b600060208284031215611c4f57600080fd5b5035919050565b60008083601f840112611c6857600080fd5b50813567ffffffffffffffff811115611c8057600080fd5b602083019150836020828501011115611c9857600080fd5b9250929050565b60008060008060008060008060008060c08b8d031215611cbe57600080fd5b8a35995060208b013567ffffffffffffffff80821115611cdd57600080fd5b611ce98e838f01611c56565b909b50995060408d0135915080821115611d0257600080fd5b611d0e8e838f01611c56565b909950975060608d0135915080821115611d2757600080fd5b611d338e838f01611c56565b909750955060808d0135915080821115611d4c57600080fd5b50611d598d828e01611c56565b9150809450508092505060a08b013590509295989b9194979a5092959850565b60008060008060008060006080888a031215611d9457600080fd5b87359650602088013567ffffffffffffffff80821115611db357600080fd5b611dbf8b838c01611c56565b909850965060408a0135915080821115611dd857600080fd5b611de48b838c01611c56565b909650945060608a0135915080821115611dfd57600080fd5b50611e0a8a828b01611c56565b989b979a50959850939692959293505050565b634e487b7160e01b600052604160045260246000fd5b600060208284031215611e4557600080fd5b813567ffffffffffffffff80821115611e5d57600080fd5b818401915084601f830112611e7157600080fd5b813581811115611e8357611e83611e1d565b604051601f8201601f19908116603f01168101908382118183101715611eab57611eab611e1d565b81604052828152876020848701011115611ec457600080fd5b826020860160208301376000928101602001929092525095945050505050565b6000815180845260005b81811015611f0a57602081850181015186830182015201611eee565b506000602082860101526020601f19601f83011685010191505092915050565b602081526000611f3d6020830184611ee4565b9392505050565b6001600160a01b0381168114611f5957600080fd5b50565b60008060408385031215611f6f57600080fd5b823591506020830135611f8181611f44565b809150509250929050565b60008060008060608587031215611fa257600080fd5b84359350602085013567ffffffffffffffff811115611fc057600080fd5b611fcc87828801611c56565b9094509250506040850135611fe081611f44565b939692955090935050565b6000806000806040858703121561200157600080fd5b843567ffffffffffffffff8082111561201957600080fd5b61202588838901611c56565b9096509450602087013591508082111561203e57600080fd5b5061204b87828801611c56565b95989497509550505050565b60006020828403121561206957600080fd5b8135611f3d81611f44565b60208082526019908201527f4e6f74206120706c6179657220696e207468697320726f6f6d00000000000000604082015260600190565b634e487b7160e01b600052601160045260246000fd5b8082028115828204841417610fef57610fef6120ab565b6000826120f557634e487b7160e01b600052601260045260246000fd5b500490565b80820180821115610fef57610fef6120ab565b81810381811115610fef57610fef6120ab565b6001600160a01b03929092168252602082015260400190565b60006020828403121561214b57600080fd5b81518015158114611f3d57600080fd5b8183823760009101908152919050565b81835281816020850137506000828201602090810191909152601f909101601f19169091010190565b89815260c0602082015260006121ae60c083018a8c61216b565b82810360408401526121c181898b61216b565b905086606084015282810360808401526121dc81868861216b565b9150508260a08301529a9950505050505050505050565b86815260806020820152600061220d60808301878961216b565b828103604084015261222081868861216b565b915050826060830152979650505050505050565b600181811c9082168061224857607f821691505b60208210810361226857634e487b7160e01b600052602260045260246000fd5b50919050565b6020808252600d908201526c2737ba103a34329037bbb732b960991b604082015260600190565b6000600182016122a7576122a76120ab565b5060010190565b600081546122bb81612234565b8085526020600183811680156122d857600181146122f257612320565b60ff1985168884015283151560051b880183019550612320565b866000528260002060005b858110156123185781548a82018601529083019084016122fd565b890184019650505b505050505092915050565b600060018060a01b03808916835260a0602084015261234e60a08401888a61216b565b838103604085015261236081886122ae565b905083810360608501526123748187611ee4565b925050808416608084015250979650505050505050565b60608152600061239f60608301868861216b565b82810360208401526123b181866122ae565b905082810360408401526123c58185611ee4565b979650505050505050565b868152600060018060a01b03808816602084015260a060408401526123f960a08401878961216b565b941660608301525060800152949350505050565b601f8211156118b957600081815260208120601f850160051c810160208610156124345750805b601f850160051c820191505b8181101561245357828155600101612440565b505050505050565b67ffffffffffffffff83111561247357612473611e1d565b612487836124818354612234565b8361240d565b6000601f8411600181146124bb57600085156124a35750838201355b600019600387901b1c1916600186901b1783556115cf565b600083815260209020601f19861690835b828110156124ec57868501358255602094850194600190920191016124cc565b50868210156125095760001960f88860031b161c19848701351681555b505060018560011b0183555050505050565b602080825260129082015271526f6f6d206973206e6f742061637469766560701b604082015260600190565b600081612556576125566120ab565b506000190190565b60006020828403121561257057600080fd5b5051919050565b600080835461258581612234565b6001828116801561259d57600181146125b2576125e1565b60ff19841687528215158302870194506125e1565b8760005260208060002060005b858110156125d85781548a8201529084019082016125bf565b50505082870194505b50929695505050505050565b6000806040838503121561260057600080fd5b823561260b81611f44565b94602093909301359350505056fea264697066735822122089d19db516fccb9da6e08d545bac5e8bf47a03341d4d2ce836e635163918099c64736f6c63430008140033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 7308,
+        "contract": "contracts/SeaFortune.sol:SeaFortune",
+        "label": "owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 7310,
+        "contract": "contracts/SeaFortune.sol:SeaFortune",
+        "label": "feePercentage",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 7312,
+        "contract": "contracts/SeaFortune.sol:SeaFortune",
+        "label": "mapOwnerPercentage",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 7314,
+        "contract": "contracts/SeaFortune.sol:SeaFortune",
+        "label": "communityPercentage",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 7316,
+        "contract": "contracts/SeaFortune.sol:SeaFortune",
+        "label": "pointsPercentage",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 7318,
+        "contract": "contracts/SeaFortune.sol:SeaFortune",
+        "label": "winnerPercentage",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 7320,
+        "contract": "contracts/SeaFortune.sol:SeaFortune",
+        "label": "communityWallet",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_address"
+      },
+      {
+        "astId": 7327,
+        "contract": "contracts/SeaFortune.sol:SeaFortune",
+        "label": "trustedRemotes",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_mapping(t_string_memory_ptr,t_string_storage)"
+      },
+      {
+        "astId": 7356,
+        "contract": "contracts/SeaFortune.sol:SeaFortune",
+        "label": "rooms",
+        "offset": 0,
+        "slot": "8",
+        "type": "t_mapping(t_uint256,t_struct(Room)7351_storage)"
+      },
+      {
+        "astId": 7358,
+        "contract": "contracts/SeaFortune.sol:SeaFortune",
+        "label": "roomCounter",
+        "offset": 0,
+        "slot": "9",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 7361,
+        "contract": "contracts/SeaFortune.sol:SeaFortune",
+        "label": "token",
+        "offset": 0,
+        "slot": "10",
+        "type": "t_contract(IERC20)3524"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_contract(IERC20)3524": {
+        "encoding": "inplace",
+        "label": "contract IERC20",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_string_memory_ptr,t_string_storage)": {
+        "encoding": "mapping",
+        "key": "t_string_memory_ptr",
+        "label": "mapping(string => string)",
+        "numberOfBytes": "32",
+        "value": "t_string_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Room)7351_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct SeaFortune.Room)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Room)7351_storage"
+      },
+      "t_string_memory_ptr": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(Player)7334_storage": {
+        "encoding": "inplace",
+        "label": "struct SeaFortune.Player",
+        "members": [
+          {
+            "astId": 7329,
+            "contract": "contracts/SeaFortune.sol:SeaFortune",
+            "label": "playerAddress",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 7331,
+            "contract": "contracts/SeaFortune.sol:SeaFortune",
+            "label": "points",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7333,
+            "contract": "contracts/SeaFortune.sol:SeaFortune",
+            "label": "towersLeft",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_struct(Room)7351_storage": {
+        "encoding": "inplace",
+        "label": "struct SeaFortune.Room",
+        "members": [
+          {
+            "astId": 7337,
+            "contract": "contracts/SeaFortune.sol:SeaFortune",
+            "label": "player1",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(Player)7334_storage"
+          },
+          {
+            "astId": 7340,
+            "contract": "contracts/SeaFortune.sol:SeaFortune",
+            "label": "player2",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_struct(Player)7334_storage"
+          },
+          {
+            "astId": 7342,
+            "contract": "contracts/SeaFortune.sol:SeaFortune",
+            "label": "betAmount",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7344,
+            "contract": "contracts/SeaFortune.sol:SeaFortune",
+            "label": "isActive",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_bool"
+          },
+          {
+            "astId": 7346,
+            "contract": "contracts/SeaFortune.sol:SeaFortune",
+            "label": "winner",
+            "offset": 1,
+            "slot": "7",
+            "type": "t_address"
+          },
+          {
+            "astId": 7348,
+            "contract": "contracts/SeaFortune.sol:SeaFortune",
+            "label": "betPaid",
+            "offset": 21,
+            "slot": "7",
+            "type": "t_bool"
+          },
+          {
+            "astId": 7350,
+            "contract": "contracts/SeaFortune.sol:SeaFortune",
+            "label": "mapOwner",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_address"
+          }
+        ],
+        "numberOfBytes": "288"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
