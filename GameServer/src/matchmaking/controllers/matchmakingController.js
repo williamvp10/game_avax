@@ -3,15 +3,16 @@ import { createGameRoom } from '../../game/controllers/gameRoom.js';
 
 let matchmakingQueue = [];
 
-export function addPlayerToQueue(player, socketId, skinId) {
+export function addPlayerToQueue(player, socketId, skinId, walletAddress) {
     player.socketId = socketId;  // Asociar el ID de socket con el jugador
     player.skinId = skinId;
-    console.log("New socket received: " + player.socketId + " With skin: " + player.skinId);
+    player.walletAddress = walletAddress
+    console.log("New socket received: " + player.socketId + " With skin: " + player.skinId + " With Address: " + player.walletAddress);
     matchmakingQueue.push(player);
     return matchPlayers();
 }
 
-const matchPlayers = () => {
+const matchPlayers = async () => {
     if (matchmakingQueue.length < 2) {
         return null;
     }
@@ -23,8 +24,8 @@ const matchPlayers = () => {
     const player2 = matchmakingQueue.shift();
 
     if (Math.abs(player1.cups - player2.cups) <= 100 && Math.abs(player1.level - player2.level) <= 5) {
-        const gameRoom = createGameRoom(player1, player2);
-        gameRoom.setupGame();
+        const gameRoom = await createGameRoom(player1, player2);
+        //gameRoom.setupGame();
 
         return { player1, player2 };
     }

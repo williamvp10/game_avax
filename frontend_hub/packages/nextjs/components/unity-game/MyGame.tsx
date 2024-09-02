@@ -13,6 +13,22 @@ export default function MyGame({ connectedAddress }: MyGameProps) {
     codeUrl: "/unity/Build/PiratesGameWbgl.wasm.unityweb",
   });
 
+  useEffect(() => {
+    const handleUnityMessage = (event: MessageEvent) => {
+      console.log("Received message from Unity:", event);
+      if (event.data && typeof event.data === 'object' && event.data.type === 'FROM_UNITY') {
+        console.log("Received message from Unity:", event.data);
+        // Manejar el mensaje según tus necesidades
+      }
+    };
+  
+    window.addEventListener("message", handleUnityMessage);
+  
+    return () => {
+      window.removeEventListener("message", handleUnityMessage);
+    };
+  }, []);
+
   // Function to send the address to Unity
   const sendAddressToUnity = useCallback(() => {
     if (connectedAddress) {
