@@ -206,23 +206,43 @@ class GameRoom {
         }
     }
 
-    handleTowerDestroyed(socketId, towerType, myTowerId) {
+    async handleTowerDestroyed(socketId, towerType, myTowerId) {
         // Aquí puedes manejar la lógica cuando una torre es destruida
         console.log(`Tower ${towerType} for player ${socketId} has been destroyed.`);
 
         // Enviar notificación a ambos jugadores
-        this.players.forEach(player => {
+        this.players.forEach(async player => {
             this.sendWebSocketMessage(player.socketId, 'towerDestroyed', {
                 socketId: socketId,
                 towerType: towerType,
                 myTowerId: myTowerId
             });
+
+            if (player.socketId == socketId) {
+                const serverUrl = process.env.WEB3_API_URL;
+                console.log("Server: " + serverUrl);
+                console.log("Contract: " + process.env.CONTRACT_SEA_FORTUNE_ADDRESS);
+                try {
+                    await axios.post(`${serverUrl}/api/seaoffortune/register-tower-destruction`, {
+                        contractAddress: process.env.CONTRACT_SEA_FORTUNE_ADDRESS,
+                        network: "localhost",
+                        roomId: this.web3RoomId,
+                        player: player.walletAddress
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error creating game room:', error);
+                    throw new Error(error);
+                }
+            }
         });
 
-        // Aquí puedes agregar cualquier lógica adicional, como verificar si todas las torres han sido destruidas y finalizar el juego si es necesario
     }
 
-    endGame(loserSocketId) {
+    async endGame(loserSocketId) {
         const winner = this.players.find(player => player.socketId !== loserSocketId);
         const loser = this.players.find(player => player.socketId === loserSocketId);
 
@@ -235,6 +255,25 @@ class GameRoom {
         });
 
         console.log(`Game in room ${this.roomId} ended. Winner: ${winner.socketId}, Loser: ${loser.socketId}`);
+
+        const serverUrl = process.env.WEB3_API_URL;
+        console.log("Server: " + serverUrl);
+        console.log("Contract: " + process.env.CONTRACT_SEA_FORTUNE_ADDRESS);
+        try {
+            await axios.post(`${serverUrl}/api/seaoffortune/declare-winner`, {
+                contractAddress: process.env.CONTRACT_SEA_FORTUNE_ADDRESS,
+                network: "localhost",
+                roomId: this.web3RoomId,
+                winner: winner.walletAddress
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (error) {
+            console.error('Error creating game room:', error);
+            throw new Error(error);
+        }
 
         // Elimina la sala de juego
         this.cleanUpRoom();
@@ -276,6 +315,15 @@ export async function createGameRoom(player1, player2) {
         console.error('Error creating game room:', error);
         throw new Error(error);
     }
+}
+
+export function setUpMyGame(roomId) {
+    const gameRoom = getGameRoom(roomId);
+    if (!gameRoom) {
+        console.error(`Game room with ID ${roomId} not found`);
+        return;
+    }
+    gameRoom.setupGame();
 }
 
 export function getGameRoom(roomId) {

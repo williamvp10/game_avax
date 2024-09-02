@@ -4,7 +4,7 @@ import WebSocket, { WebSocketServer } from 'ws';
 import { v4 as uuidv4 } from 'uuid';
 import matchmakingRouter from './matchmaking/routes/matchmakingRoutes.js';
 
-import { handleReadyToStart, getGameRoom, handlePlayerFire, handlePlayerDamage, handleMinerOrMarinerFire, handleTowerDamage } from './game/controllers/gameRoom.js';
+import { setUpMyGame, handleReadyToStart, getGameRoom, handlePlayerFire, handlePlayerDamage, handleMinerOrMarinerFire, handleTowerDamage } from './game/controllers/gameRoom.js';
 
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -31,6 +31,9 @@ wss.on('connection', (ws) => {
         const parsedMessage = JSON.parse(message);
 
         switch (parsedMessage.type) {
+            case 'readyToSetUp':
+                setUpMyGame(parsedMessage.roomId);
+                break;
             case 'readyToStart':
                 handleReadyToStart(socketId, parsedMessage.roomId);
                 break;
