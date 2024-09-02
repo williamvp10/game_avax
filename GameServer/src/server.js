@@ -6,6 +6,11 @@ import matchmakingRouter from './matchmaking/routes/matchmakingRoutes.js';
 
 import { handleReadyToStart, getGameRoom, handlePlayerFire, handlePlayerDamage, handleMinerOrMarinerFire, handleTowerDamage } from './game/controllers/gameRoom.js';
 
+import dotenv from 'dotenv';
+import cors from 'cors';
+
+dotenv.config();
+
 //const matchmakingService = require('./matchmaking/index');
 
 const app = express();
@@ -59,6 +64,9 @@ wss.on('connection', (ws) => {
 });
 
 const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.options('*', cors());
 
 // Configurar middlewares y rutas
 app.use(express.json());

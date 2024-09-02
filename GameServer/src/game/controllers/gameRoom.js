@@ -1,8 +1,12 @@
 import { clients } from '../../server.js';
+import fs from 'fs';
+import axios from 'axios';
 
 class GameRoom {
-    constructor(player1, player2, roomId) {
+    constructor(player1, player2, roomId, web3RoomId, betAmount) {
         this.roomId = roomId;
+        this.web3RoomId = web3RoomId;
+        this.betAmount = betAmount;
         this.players = [player1, player2];
         this.playerReadyStatus = { // Inicializa el estado de preparación de los jugadores
             [player1.socketId]: false,
@@ -30,7 +34,18 @@ class GameRoom {
                 { socketId: player2.socketId, actualLive: 60, maxLive: 60 }
             ]
         };
-        this.setupGame();
+        //this.setupGame();
+        this.setupBet();
+    }
+
+    setupBet() {
+        this.players.forEach(player => {
+            this.sendWebSocketMessage(player.socketId, 'gameStartTransaction', {
+                roomId: this.roomId,
+                web3RoomId: this.web3RoomId,
+                betAmount: this.betAmount
+            });
+        });
     }
 
     playerReady(socketId) {
@@ -162,19 +177,19 @@ class GameRoom {
                 console.error(`Unknown tower type: ${towerType}`);
                 return;
         }
-    
+
         // Encuentra la torre específica del jugador
         const towerIndex = towerArray.findIndex(tower => tower.socketId === socketId);
-    
+
         if (towerIndex !== -1) {
             // Resta el daño a la vida actual de la torre
             towerArray[towerIndex].actualLive -= damage;
-    
+
             // Asegura que la vida de la torre no caiga por debajo de cero
             if (towerArray[towerIndex].actualLive < 0) {
                 towerArray[towerIndex].actualLive = 0;
             }
-    
+
             // Envía la vida actualizada de la torre a ambos jugadores
             this.players.forEach(player => {
                 this.sendWebSocketMessage(player.socketId, 'updateTowerHealth', {
@@ -183,18 +198,18 @@ class GameRoom {
                     towerHealth: towerArray
                 });
             });
-    
+
             // Verifica si la torre ha sido destruida
             if (towerArray[towerIndex].actualLive === 0) {
                 this.handleTowerDestroyed(socketId, towerType, myTowerId);
             }
         }
     }
-    
+
     handleTowerDestroyed(socketId, towerType, myTowerId) {
         // Aquí puedes manejar la lógica cuando una torre es destruida
         console.log(`Tower ${towerType} for player ${socketId} has been destroyed.`);
-    
+
         // Enviar notificación a ambos jugadores
         this.players.forEach(player => {
             this.sendWebSocketMessage(player.socketId, 'towerDestroyed', {
@@ -203,7 +218,7 @@ class GameRoom {
                 myTowerId: myTowerId
             });
         });
-    
+
         // Aquí puedes agregar cualquier lógica adicional, como verificar si todas las torres han sido destruidas y finalizar el juego si es necesario
     }
 
@@ -233,11 +248,34 @@ class GameRoom {
 
 const gameRooms = new Map();
 
-export function createGameRoom(player1, player2) {
+
+export async function createGameRoom(player1, player2) {
     const roomId = `room_${Date.now()}`;
-    const gameRoom = new GameRoom(player1, player2, roomId);
-    gameRooms.set(roomId, gameRoom);
-    return gameRoom;
+    const serverUrl = process.env.WEB3_API_URL;
+    console.log(serverUrl);
+    try {
+        const response = await axios.post(`${serverUrl}/api/seaoffortune/create-room`, {
+            contractAddress: process.env.CONTRACT_SEA_FORTUNE_ADDRESS,
+            network: "localhost",
+            betAmount: "5000000000000000000",
+            mapOwner: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const web3RoomId = response.data.roomId;
+        const betAmount = response.data.betAmount;
+        const gameRoom = new GameRoom(player1, player2, roomId, web3RoomId, betAmount);
+        console.log(gameRoom.web3RoomId);
+        gameRooms.set(roomId, gameRoom);
+
+        return gameRoom;
+    } catch (error) {
+        console.error('Error creating game room:', error);
+        throw new Error(error);
+    }
 }
 
 export function getGameRoom(roomId) {
